@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { ArrowUpRight, Compass, ShieldAlert, Sparkles } from "lucide-react";
+import InteractiveGrid from "./InteractiveGrid";
 
 const aboutItems = [
   {
@@ -53,7 +54,7 @@ export default function About() {
   return (
     <section id="about" className="relative bg-white text-[#1c1a17] py-20 sm:py-28 overflow-hidden border-t border-zinc-200/50">
       {/* Blueprint Grid Accent */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none z-0" />
+      <InteractiveGrid opacity={0.4} />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">

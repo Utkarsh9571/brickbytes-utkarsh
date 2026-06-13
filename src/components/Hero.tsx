@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Play, Compass, X } from "lucide-react";
+import InteractiveGrid from "./InteractiveGrid";
 
 // Plotted Land Gated Community Model
 const plots = [
@@ -387,7 +388,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center pt-16 sm:pt-24 pb-6 sm:pb-16 overflow-hidden bg-white text-[#1c1a17]">
       {/* Background architectural fine lines */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-100 pointer-events-none z-0" />
+      <InteractiveGrid opacity={1.0} />
       <div className="absolute inset-0 bg-dot-pattern opacity-60 pointer-events-none z-0" />
 
       {/* Decorative architectural borders */}
@@ -481,7 +482,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4 }}
           ref={containerRef}
-          className="relative w-full max-w-[1100px] h-[230px] xs:h-[290px] sm:h-[380px] md:h-[500px] lg:h-[580px] xl:h-[640px] bg-zinc-50 border border-zinc-200/80 rounded-2xl overflow-hidden select-none cursor-ew-resize shadow-[0_25px_60px_-15px_rgba(28,26,23,0.12)]"
+          className="relative w-full max-w-275 h-57.5 xs:h-[290px] sm:h-95 md:h-125 lg:h-145 xl:h-160 bg-zinc-50 border border-zinc-200/80 rounded-2xl overflow-hidden select-none cursor-ew-resize shadow-[0_25px_60px_-15px_rgba(28,26,23,0.12)]"
         >
           {/* Flat Map Wrapper */}
           <div className="absolute inset-0 w-full h-full">
@@ -522,7 +523,7 @@ export default function Hero() {
               
               {/* Floating Availability Legend (Top Right, under viewMode swapper) */}
               {viewMode !== "drone" && (
-                <div className="absolute top-[58px] right-6 z-20 flex items-center gap-3.5 px-3 py-1.5 rounded-lg bg-white/95 backdrop-blur-sm border border-zinc-200/50 shadow-sm pointer-events-none text-[9px] font-bold tracking-wider uppercase hidden sm:flex">
+                <div className="absolute top-14.5 right-6 z-20 hidden sm:flex items-center gap-3.5 px-3 py-1.5 rounded-lg bg-white/95 backdrop-blur-sm border border-zinc-200/50 shadow-sm pointer-events-none text-[9px] font-bold tracking-wider uppercase">
                   <span className="flex items-center gap-1.5 text-zinc-600">
                     <span className="w-2 h-2 rounded-full bg-brick-orange" /> Available
                   </span>
@@ -948,7 +949,7 @@ export default function Hero() {
                       <rect x="185" y="345" width="40" height="50" rx="4" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" filter="url(#block-shadow)" />
                       <rect x="185" y="345" width="40" height="15" fill="url(#roof-hatch)" stroke="#e4e4e7" strokeWidth="0.8" />
                       
-                      <text x="150" y="415" textAnchor="middle" className="text-[8px] font-serif font-light tracking-widest fill-zinc-500 font-bold">
+                      <text x="150" y="415" textAnchor="middle" className="text-[8px] font-serif tracking-widest fill-zinc-500 font-bold">
                         RETAIL PROMENADE
                       </text>
                     </>
@@ -1124,7 +1125,7 @@ export default function Hero() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 5, scale: 0.98 }}
                   transition={{ duration: 0.25 }}
-                  className="hidden md:block absolute bottom-6 right-6 w-[240px] glass-card rounded-xl p-4 border border-zinc-200/50 z-20 text-left pointer-events-auto shadow-luxury-deep"
+                  className="hidden md:block absolute bottom-6 right-6 w-60 glass-card rounded-xl p-4 border border-zinc-200/50 z-20 text-left pointer-events-auto shadow-luxury-deep"
                 >
                   {/* Card Header */}
                   <div className="flex flex-col gap-0.5 border-b border-zinc-200/60 pb-2.5 mb-3">
@@ -1203,7 +1204,7 @@ export default function Hero() {
 
               {/* Subtle Compass Needle HUD */}
               {viewMode === "drone" && (
-                <div className="absolute top-[80px] left-6 z-20 flex flex-col items-center gap-1.5 p-2 rounded-lg bg-zinc-950/85 backdrop-blur-sm border border-white/10 shadow-lg pointer-events-none text-white hidden sm:flex">
+                <div className="absolute top-20 left-6 z-20 hidden sm:flex flex-col items-center gap-1.5 p-2 rounded-lg bg-zinc-950/85 backdrop-blur-sm border border-white/10 shadow-lg pointer-events-none text-white">
                   <svg className="w-8 h-8" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="3" />
                     <text x="50" y="24" textAnchor="middle" fill="#ffffff" className="text-[12px] font-mono font-bold">N</text>
@@ -1222,7 +1223,7 @@ export default function Hero() {
 
               {/* Drag to Explore Reality Indicator */}
               {viewMode === "drone" && (
-                <div className="absolute bottom-6 right-[260px] z-20 px-3 py-1.5 rounded-lg bg-zinc-950/85 backdrop-blur-sm text-white text-[8px] font-bold tracking-widest uppercase flex items-center gap-1.5 border border-white/10 shadow-lg pointer-events-auto hidden md:flex">
+                <div className="absolute bottom-6 right-65 z-20 hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-950/85 backdrop-blur-sm text-white text-[8px] font-bold tracking-widest uppercase border border-white/10 shadow-lg pointer-events-auto">
                   <span className="w-1.5 h-1.5 rounded-full bg-brick-orange animate-pulse" />
                   <span>Drag Divider to Compare with Blueprint</span>
                 </div>
@@ -1273,7 +1274,7 @@ export default function Hero() {
               </div>
 
               {/* Title Block Box (Engineering Drafting Stamp) */}
-              <div className="absolute bottom-6 left-6 z-10 p-4 border border-zinc-300 font-mono text-[9px] text-zinc-400 leading-relaxed bg-[#f4f2ed]/90 max-w-[220px] pointer-events-none">
+              <div className="absolute bottom-6 left-6 z-10 p-4 border border-zinc-300 font-mono text-[9px] text-zinc-400 leading-relaxed bg-[#f4f2ed]/90 max-w-55 pointer-events-none">
                 <p className="font-bold text-zinc-500 border-b border-zinc-300 pb-1.5 mb-1.5 uppercase tracking-wide">Technical Boundary Draft</p>
                 <p>SCALE: 1 INCH = 40 FEET</p>
                 <p>TOTAL UNITS: 16 SUBDIVISIONS</p>
@@ -1480,7 +1481,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Mobile Layout Accessories (Details Only) */}
-        <div className="w-full max-w-[1100px] mt-6 md:hidden px-2 flex flex-col gap-4 text-left pointer-events-auto">
+        <div className="w-full max-w-275 mt-6 md:hidden px-2 flex flex-col gap-4 text-left pointer-events-auto">
 
           {/* Mobile Plot Details Card */}
           <div className="w-full bg-white border border-zinc-200/80 rounded-xl p-5 shadow-sm">

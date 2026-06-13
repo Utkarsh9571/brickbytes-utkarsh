@@ -3,6 +3,7 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import { Map, Layers, Camera, Users, Monitor, ShieldAlert, Sparkles, LineChart } from "lucide-react";
+import InteractiveGrid from "./InteractiveGrid";
 
 const bentoItems = [
   {
@@ -14,7 +15,7 @@ const bentoItems = [
     span: "md:col-span-2 md:row-span-2",
     icon: <Map className="w-5 h-5 text-brick-orange" />,
     svg: (
-      <svg className="w-full h-full min-h-[160px] md:min-h-[220px]" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className="w-full h-full min-h-40 md:min-h-55" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M 0 40 L 320 40 M 0 80 L 320 80 M 0 120 L 320 120 M 0 160 L 320 160 M 0 200 L 320 200 M 40 0 L 40 220 M 80 0 L 80 220 M 120 0 L 120 220 M 160 0 L 160 220 M 200 0 L 200 220 M 240 0 L 240 220 M 280 0 L 280 220" stroke="#f4f4f5" strokeWidth="0.5" />
         
         {/* Plot 1 */}
@@ -226,7 +227,7 @@ export default function FeaturesBento() {
   return (
     <section id="features" className="relative bg-white text-[#1c1a17] py-20 sm:py-28 overflow-hidden border-t border-zinc-200/50">
       {/* Decorative Blueprint Accent grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none z-0" />
+      <InteractiveGrid opacity={0.4} />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
         {/* Section Header */}

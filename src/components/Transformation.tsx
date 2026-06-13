@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { ArrowRight, FileText, Smartphone, Database, CheckCircle2, AlertCircle, Compass, Layers } from "lucide-react";
+import InteractiveGrid from "./InteractiveGrid";
 
 const traditionalFeatures = [
   {
@@ -74,7 +75,7 @@ export default function Transformation() {
   return (
     <section id="transformation" className="relative bg-white text-[#1c1a17] py-20 sm:py-28 overflow-hidden border-t border-zinc-200/50">
       {/* Blueprint background grid pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none z-0" />
+      <InteractiveGrid opacity={0.4} />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
         {/* Section Header */}

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ArrowUp, Mail, Phone, MapPin, Home } from "lucide-react";
+import InteractiveGrid from "./InteractiveGrid";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -11,7 +12,7 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#fbfbfa] text-[#1c1a17] py-16 sm:py-20 border-t border-zinc-200/80 z-20">
       {/* Background blueprint fine grid lines */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none z-0" />
+      <InteractiveGrid opacity={0.3} />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
         {/* Main Links Grid */}
