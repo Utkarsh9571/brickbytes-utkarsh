@@ -50,7 +50,7 @@ export default function FinalCTA() {
       <div className="absolute bottom-10 right-10 w-6 h-6 border-b border-r border-zinc-800 pointer-events-none hidden sm:block" />
 
       {/* Glowing Orange halo center spotlight */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-brick-orange/15 rounded-full filter blur-[80px] sm:blur-[120px] pointer-events-none z-0" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-75 sm:w-125 h-75 sm:h-125 bg-brick-orange/15 rounded-full filter blur-[80px] sm:blur-[120px] pointer-events-none z-0" />
 
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 w-full flex flex-col items-center text-center">
         

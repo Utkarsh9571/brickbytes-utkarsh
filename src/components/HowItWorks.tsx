@@ -359,7 +359,7 @@ export default function HowItWorks() {
                   </motion.div>
 
                   {/* Desktop vertical connector line to card */}
-                  <div className="hidden md:block w-[2px] h-6 relative overflow-hidden bg-zinc-200">
+                  <div className="hidden md:block w-0.5 h-6 relative overflow-hidden bg-zinc-200">
                     <motion.div
                       className="absolute inset-0 bg-brick-orange origin-top"
                       variants={verticalConnectorVariants(idx)}
@@ -367,7 +367,7 @@ export default function HowItWorks() {
                   </div>
 
                   {/* Mobile horizontal connector line to card */}
-                  <div className="block md:hidden absolute left-8 w-12 h-[2px] bg-zinc-200 z-0" style={{ top: "32px" }}>
+                  <div className="block md:hidden absolute left-8 w-12 h-0.5 bg-zinc-200 z-0" style={{ top: "32px" }}>
                     <motion.div
                       className="absolute inset-0 bg-brick-orange origin-left"
                       variants={horizontalConnectorVariants(idx)}
