@@ -31,12 +31,6 @@ const buttonVariants: Variants = {
 export default function FinalCTA() {
   return (
     <section id="contact" className="relative bg-[#0a0a0b] text-white py-24 sm:py-36 overflow-hidden border-t border-zinc-900">
-      {/* Top Transition: Blends warm ivory from FAQ section into the dark CTA */}
-      <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#fbfbfa] via-[#fbfbfa]/40 to-transparent pointer-events-none z-10" />
-
-      {/* Bottom Transition: Blends the dark CTA back into the warm ivory Footer */}
-      <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#fbfbfa] via-[#fbfbfa]/40 to-transparent pointer-events-none z-10" />
-
       {/* Dark mode CAD grid pattern overlay */}
       <div 
         className="absolute inset-0 opacity-[0.04] pointer-events-none z-0" 

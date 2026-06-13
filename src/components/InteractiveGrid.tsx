@@ -15,6 +15,7 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
   const stateRef = useRef({
     mouse: { x: 0, y: 0, targetX: 0, targetY: 0, active: false },
     strength: { current: 0, target: 0 },
+    pulse: { x: 0, y: 0, radius: 0, strength: 0, active: false },
     dimensions: { width: 0, height: 0 },
     animationFrameId: 0,
     isLoopRunning: false,
@@ -84,8 +85,8 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
         entries.forEach((entry) => {
           state.isVisible = entry.isIntersecting;
           if (entry.isIntersecting) {
-            // Restart loop if mouse is active or strength is above threshold
-            if (state.mouse.active || state.strength.current > 0.001) {
+            // Restart loop if mouse is active, strength is above threshold, or pulse is active
+            if (state.mouse.active || state.strength.current > 0.001 || state.pulse.active) {
               startLoop();
             }
           } else {
@@ -97,27 +98,58 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
     );
     intersectionObserver.observe(container);
 
-    // Gravitational vector warping formula
-    function getDisplacedPoint(x: number, y: number, mouseX: number, mouseY: number, strength: number) {
-      const dx = mouseX - x;
-      const dy = mouseY - y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      const influenceRadius = 180; // Field size
-      const maxDisplacement = 28;  // Strength of pull
+    // Gravitational vector warping formula (combining mouse pull and mobile ripple wave)
+    function getDisplacedPoint(
+      x: number,
+      y: number,
+      mouseX: number,
+      mouseY: number,
+      strength: number,
+      pulse: typeof stateRef.current.pulse
+    ) {
+      const pt = { x, y };
 
-      if (distance < influenceRadius && distance > 0.1) {
-        // Smoothstep / cubic ease-out distortion curve
-        const t = 1 - distance / influenceRadius;
-        const ease = t * t * (3 - 2 * t);
-        const pull = maxDisplacement * ease * strength;
+      // 1. Cursor Gravitational Pull
+      if (strength > 0.001) {
+        const dx = mouseX - pt.x;
+        const dy = mouseY - pt.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const influenceRadius = 180; // Field size
+        const maxDisplacement = 28;  // Strength of pull
 
-        return {
-          x: x + (dx / distance) * pull,
-          y: y + (dy / distance) * pull,
-        };
+        if (distance < influenceRadius && distance > 0.1) {
+          // Smoothstep / cubic ease-out distortion curve
+          const t = 1 - distance / influenceRadius;
+          const ease = t * t * (3 - 2 * t);
+          const pull = maxDisplacement * ease * strength;
+
+          pt.x += (dx / distance) * pull;
+          pt.y += (dy / distance) * pull;
+        }
       }
 
-      return { x, y };
+      // 2. Mobile Touch Gravity Wave Ripple
+      if (pulse.active && pulse.strength > 0.001) {
+        const dx = pt.x - pulse.x;
+        const dy = pt.y - pulse.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const rippleWidth = 60; // Wave width
+        const maxPush = 20;     // Outward wave push strength
+
+        if (distance > 0.1) {
+          const diff = Math.abs(distance - pulse.radius);
+          if (diff < rippleWidth) {
+            const t = 1 - diff / rippleWidth;
+            const ease = t * t * (3 - 2 * t);
+            const push = maxPush * ease * pulse.strength;
+
+            pt.x += (dx / distance) * push;
+            pt.y += (dy / distance) * push;
+          }
+        }
+      }
+
+      return pt;
     }
 
     // Main rendering logic
@@ -126,23 +158,62 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       const mouseX = s.mouse.x;
       const mouseY = s.mouse.y;
       const strength = s.strength.current;
-      const isDistorted = strength > 0.001;
+      const pulse = s.pulse;
 
       context.clearRect(0, 0, width, height);
 
       const gridSpacing = 50; // Size of architectural grid square
       const lineStep = 10;    // Interpolation resolution for smooth bending curves
 
-      // Draw Grid Lines (Vertical & Horizontal)
+      // 1. Draw a soft, warm background glow behind focus zone on desktop
+      if (s.mouse.active && strength > 0.001) {
+        context.beginPath();
+        const glowGrad = context.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 180);
+        glowGrad.addColorStop(0, "rgba(255, 94, 19, 0.07)"); // very soft orange glow
+        glowGrad.addColorStop(1, "rgba(255, 94, 19, 0)");
+        context.fillStyle = glowGrad;
+        context.arc(mouseX, mouseY, 180, 0, Math.PI * 2);
+        context.fill();
+      }
+
+      // 2. Draw soft mobile expanding ring glow
+      if (pulse.active && pulse.strength > 0.001) {
+        context.beginPath();
+        context.arc(pulse.x, pulse.y, pulse.radius, 0, Math.PI * 2);
+        context.lineWidth = 40;
+        context.strokeStyle = `rgba(255, 94, 19, ${0.12 * pulse.strength})`;
+        context.stroke();
+      }
+
+      // 3. Create dynamic styling for grid lines
+      let strokeStyle: string | CanvasGradient = "rgba(28, 26, 23, 0.11)"; // Slightly increased base visibility (0.07 -> 0.11)
+      
+      if (s.mouse.active && strength > 0.001) {
+        const lineGrad = context.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 180);
+        lineGrad.addColorStop(0, "rgba(255, 94, 19, 0.40)"); // soft glowing orange at center focus
+        lineGrad.addColorStop(0.35, "rgba(28, 26, 23, 0.33)"); // higher-contrast dark warm color
+        lineGrad.addColorStop(1, "rgba(28, 26, 23, 0.11)"); // base grid style
+        strokeStyle = lineGrad;
+      } else if (pulse.active && pulse.strength > 0.001) {
+        // Highlight lines passing through the ripple wave
+        const lineGrad = context.createRadialGradient(pulse.x, pulse.y, Math.max(0, pulse.radius - 30), pulse.x, pulse.y, pulse.radius + 30);
+        lineGrad.addColorStop(0, "rgba(28, 26, 23, 0.11)");
+        lineGrad.addColorStop(0.5, `rgba(255, 94, 19, ${0.25 * pulse.strength})`);
+        lineGrad.addColorStop(1, "rgba(28, 26, 23, 0.11)");
+        strokeStyle = lineGrad;
+      }
+
       context.lineWidth = 0.5;
-      context.strokeStyle = "rgba(28, 26, 23, 0.07)"; // Elegant warm architectural color
+      context.strokeStyle = strokeStyle;
+
+      const isDistorted = strength > 0.001 || (pulse.active && pulse.strength > 0.001);
 
       // Vertical lines
       for (let x = 0; x <= width; x += gridSpacing) {
         context.beginPath();
         for (let y = 0; y <= height; y += lineStep) {
           const pt = isDistorted 
-            ? getDisplacedPoint(x, y, mouseX, mouseY, strength) 
+            ? getDisplacedPoint(x, y, mouseX, mouseY, strength, pulse) 
             : { x, y };
 
           if (y === 0) {
@@ -159,7 +230,7 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
         context.beginPath();
         for (let x = 0; x <= width; x += lineStep) {
           const pt = isDistorted 
-            ? getDisplacedPoint(x, y, mouseX, mouseY, strength) 
+            ? getDisplacedPoint(x, y, mouseX, mouseY, strength, pulse) 
             : { x, y };
 
           if (x === 0) {
@@ -171,12 +242,28 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
         context.stroke();
       }
 
-      // Draw Architectural Drafting Intersect Dots
-      context.fillStyle = "rgba(28, 26, 23, 0.16)";
+      // 4. Create dynamic styling for architectural dots
+      let fillStyle: string | CanvasGradient = "rgba(28, 26, 23, 0.22)"; // Slightly increased base visibility (0.16 -> 0.22)
+      
+      if (s.mouse.active && strength > 0.001) {
+        const dotGrad = context.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 180);
+        dotGrad.addColorStop(0, "rgba(255, 94, 19, 0.60)"); // bright orange dot focus
+        dotGrad.addColorStop(0.35, "rgba(28, 26, 23, 0.40)"); // stronger dots near focus
+        dotGrad.addColorStop(1, "rgba(28, 26, 23, 0.22)");
+        fillStyle = dotGrad;
+      } else if (pulse.active && pulse.strength > 0.001) {
+        const dotGrad = context.createRadialGradient(pulse.x, pulse.y, Math.max(0, pulse.radius - 30), pulse.x, pulse.y, pulse.radius + 30);
+        dotGrad.addColorStop(0, "rgba(28, 26, 23, 0.22)");
+        dotGrad.addColorStop(0.5, `rgba(255, 94, 19, ${0.45 * pulse.strength})`);
+        dotGrad.addColorStop(1, "rgba(28, 26, 23, 0.22)");
+        fillStyle = dotGrad;
+      }
+
+      context.fillStyle = fillStyle;
       for (let x = 0; x <= width; x += gridSpacing) {
         for (let y = 0; y <= height; y += gridSpacing) {
           const pt = isDistorted 
-            ? getDisplacedPoint(x, y, mouseX, mouseY, strength) 
+            ? getDisplacedPoint(x, y, mouseX, mouseY, strength, pulse) 
             : { x, y };
 
           context.beginPath();
@@ -192,10 +279,24 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       state.mouse.y += (state.mouse.targetY - state.mouse.y) * 0.09;
       state.strength.current += (state.strength.target - state.strength.current) * 0.07;
 
+      // Update pulse parameters
+      if (state.pulse.active) {
+        state.pulse.radius += 6.5; // expand speed
+        state.pulse.strength -= 0.02; // strength decay
+
+        if (state.pulse.strength <= 0) {
+          state.pulse.active = false;
+          state.pulse.strength = 0;
+        }
+      }
+
       drawGrid(ctx, state);
 
-      // If loop is fading out and attraction is completely gone, stop loop to save CPU
-      if (state.strength.target === 0 && state.strength.current < 0.001) {
+      // Check if we need to continue the loop
+      const isMouseAnimating = state.strength.target > 0 || state.strength.current > 0.001;
+      const isPulseAnimating = state.pulse.active;
+
+      if (!isMouseAnimating && !isPulseAnimating) {
         state.strength.current = 0;
         drawGrid(ctx, state); // Draw once static
         stopLoop();
@@ -243,18 +344,39 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       state.mouse.active = false;
     };
 
-    // Touch Support for Mobile devices
+    // Click support for gravity pulse on desktop/touch clicks
+    const onMouseDown = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      state.pulse.x = e.clientX - rect.left;
+      state.pulse.y = e.clientY - rect.top;
+      state.pulse.radius = 0;
+      state.pulse.strength = 1.0;
+      state.pulse.active = true;
+
+      if (state.isVisible) {
+        startLoop();
+      }
+    };
+
+    // Touch Support for Mobile devices (Ripples)
     const onTouchStart = (e: TouchEvent) => {
       const rect = container.getBoundingClientRect();
       const touch = e.touches[0];
+      
+      // Track coordinates for soft drag pull
       state.mouse.targetX = touch.clientX - rect.left;
       state.mouse.targetY = touch.clientY - rect.top;
-      // Instantly position tracking coordinates to avoid sliding from previous location
       state.mouse.x = state.mouse.targetX;
       state.mouse.y = state.mouse.targetY;
-      
       state.mouse.active = true;
-      state.strength.target = 1;
+      state.strength.target = 0.5; // mild drag pull
+
+      // Trigger expanding mobile ripple pulse
+      state.pulse.x = state.mouse.targetX;
+      state.pulse.y = state.mouse.targetY;
+      state.pulse.radius = 0;
+      state.pulse.strength = 1.0;
+      state.pulse.active = true;
       
       if (state.isVisible) {
         startLoop();
@@ -267,7 +389,7 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       state.mouse.targetX = touch.clientX - rect.left;
       state.mouse.targetY = touch.clientY - rect.top;
       state.mouse.active = true;
-      state.strength.target = 1;
+      state.strength.target = 0.5;
     };
 
     const onTouchEnd = () => {
@@ -275,24 +397,28 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       state.mouse.active = false;
     };
 
-    // Attach listeners to container to trace interaction fields
-    container.addEventListener("mousemove", onMouseMove, { passive: true });
-    container.addEventListener("mouseenter", onMouseEnter, { passive: true });
-    container.addEventListener("mouseleave", onMouseLeave, { passive: true });
-    container.addEventListener("touchstart", onTouchStart, { passive: true });
-    container.addEventListener("touchmove", onTouchMove, { passive: true });
-    container.addEventListener("touchend", onTouchEnd, { passive: true });
+    // Attach listeners to parent element to trace interaction fields across the entire section
+    const targetElement = container.parentElement || container;
+
+    targetElement.addEventListener("mousemove", onMouseMove, { passive: true });
+    targetElement.addEventListener("mouseenter", onMouseEnter, { passive: true });
+    targetElement.addEventListener("mouseleave", onMouseLeave, { passive: true });
+    targetElement.addEventListener("mousedown", onMouseDown, { passive: true });
+    targetElement.addEventListener("touchstart", onTouchStart, { passive: true });
+    targetElement.addEventListener("touchmove", onTouchMove, { passive: true });
+    targetElement.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       stopLoop();
-      container.removeEventListener("mousemove", onMouseMove);
-      container.removeEventListener("mouseenter", onMouseEnter);
-      container.removeEventListener("mouseleave", onMouseLeave);
-      container.removeEventListener("touchstart", onTouchStart);
-      container.removeEventListener("touchmove", onTouchMove);
-      container.removeEventListener("touchend", onTouchEnd);
+      targetElement.removeEventListener("mousemove", onMouseMove);
+      targetElement.removeEventListener("mouseenter", onMouseEnter);
+      targetElement.removeEventListener("mouseleave", onMouseLeave);
+      targetElement.removeEventListener("mousedown", onMouseDown);
+      targetElement.removeEventListener("touchstart", onTouchStart);
+      targetElement.removeEventListener("touchmove", onTouchMove);
+      targetElement.removeEventListener("touchend", onTouchEnd);
     };
   }, [isLowEndDevice]);
 

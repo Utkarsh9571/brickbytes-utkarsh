@@ -72,41 +72,153 @@ const steps = [
   }
 ];
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const stepVariants: Variants = {
-  hidden: { opacity: 0, y: 25 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1]
-    }
-  }
-};
-
 const lineVariants: Variants = {
   hidden: { pathLength: 0 },
   show: {
     pathLength: 1,
     transition: {
-      duration: 1.2,
+      duration: 1.6,
       ease: "easeInOut",
-      delay: 0.4
+      delay: 0.2
     }
   }
 };
 
+const circleVariants = (index: number): Variants => ({
+  hidden: {
+    borderColor: "rgb(228, 228, 230)", // border-zinc-200
+    color: "rgb(161, 161, 170)", // text-zinc-400
+    scale: 1,
+    boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)"
+  },
+  show: {
+    borderColor: "rgb(255, 94, 19)", // border-brick-orange
+    color: "rgb(255, 94, 19)", // text-brick-orange
+    scale: 1.05,
+    boxShadow: "0 0 16px rgba(255, 94, 19, 0.15)",
+    transition: {
+      delay: 0.2 + index * 0.8,
+      duration: 0.4,
+      ease: "easeOut"
+    }
+  }
+});
+
+const ringVariants = (index: number): Variants => ({
+  hidden: { opacity: 0, scale: 0.8 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delay: 0.2 + index * 0.8,
+      duration: 0.4,
+      ease: "easeOut"
+    }
+  }
+});
+
+const textVariants = (index: number): Variants => ({
+  hidden: { color: "rgb(161, 161, 170)" },
+  show: {
+    color: "rgb(255, 94, 19)",
+    transition: {
+      delay: 0.2 + index * 0.8,
+      duration: 0.4
+    }
+  }
+});
+
+const verticalConnectorVariants = (index: number): Variants => ({
+  hidden: { scaleY: 0 },
+  show: {
+    scaleY: 1,
+    transition: {
+      delay: 0.2 + index * 0.8 + 0.2,
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
+});
+
+const horizontalConnectorVariants = (index: number): Variants => ({
+  hidden: { scaleX: 0 },
+  show: {
+    scaleX: 1,
+    transition: {
+      delay: 0.2 + index * 0.8 + 0.2,
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
+});
+
+const cardVariants = (index: number): Variants => ({
+  hidden: { opacity: 0, y: 15 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.3 + index * 0.8,
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  }
+});
+
 export default function HowItWorks() {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [lineCoords, setLineCoords] = React.useState({
+    desktop: { x: 0, y: 0, w: 0 },
+    mobile: { x: 0, y: 0, h: 0 }
+  });
+
+  React.useEffect(() => {
+    const updateCoords = () => {
+      if (!containerRef.current) return;
+      const circles = containerRef.current.querySelectorAll(".step-circle");
+      if (circles.length >= 3) {
+        const containerRect = containerRef.current.getBoundingClientRect();
+        const c1 = circles[0].getBoundingClientRect();
+        const c3 = circles[2].getBoundingClientRect();
+
+        // Center coordinates relative to container
+        const c1X = c1.left + c1.width / 2 - containerRect.left;
+        const c1Y = c1.top + c1.height / 2 - containerRect.top;
+        
+        const c3X = c3.left + c3.width / 2 - containerRect.left;
+        const c3Y = c3.top + c3.height / 2 - containerRect.top;
+
+        setLineCoords({
+          desktop: {
+            x: c1X,
+            y: c1Y,
+            w: c3X - c1X
+          },
+          mobile: {
+            x: c1X,
+            y: c1Y,
+            h: c3Y - c1Y
+          }
+        });
+      }
+    };
+
+    updateCoords();
+
+    window.addEventListener("resize", updateCoords);
+    const observer = new ResizeObserver(updateCoords);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      window.removeEventListener("resize", updateCoords);
+      observer.disconnect();
+    };
+  }, []);
+
+  const isMeasured = lineCoords.desktop.w > 0 || lineCoords.mobile.h > 0;
+
   return (
     <section id="process" className="relative bg-[#fbfbfa] text-[#1c1a17] py-20 sm:py-28 overflow-hidden border-t border-zinc-200/50">
       {/* Blueprint Grid Accent */}
@@ -135,75 +247,142 @@ export default function HowItWorks() {
           </motion.h2>
         </div>
 
-        {/* Process Timeline Grid */}
-        <div className="relative">
+        {/* Process Timeline Wrapper */}
+        <motion.div
+          ref={containerRef}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="relative"
+        >
           {/* Desktop Horizontal Connector Line */}
-          <div className="absolute top-24 left-[16.6%] right-[16.6%] h-0.5 hidden md:block z-0 overflow-visible">
-            <svg className="w-full h-8 overflow-visible" fill="none">
-              <motion.path
-                d="M 0,2 H 500"
-                variants={lineVariants}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-100px" }}
-                stroke="#ff5e13"
-                strokeWidth="1.5"
-                strokeDasharray="4 4"
-              />
-            </svg>
-          </div>
+          {isMeasured && (
+            <div
+              className="absolute hidden md:block z-0 overflow-visible pointer-events-none"
+              style={{
+                left: lineCoords.desktop.x,
+                top: lineCoords.desktop.y,
+                width: lineCoords.desktop.w,
+                height: 8,
+                transform: "translateY(-50%)"
+              }}
+            >
+              <svg className="w-full h-full overflow-visible" fill="none">
+                {/* Background track line */}
+                <line
+                  x1="0"
+                  y1="4"
+                  x2={lineCoords.desktop.w}
+                  y2="4"
+                  stroke="#e4e4e7"
+                  strokeWidth="2"
+                  strokeDasharray="4 4"
+                />
+                {/* Animated progress line */}
+                <motion.line
+                  x1="0"
+                  y1="4"
+                  x2={lineCoords.desktop.w}
+                  y2="4"
+                  stroke="#ff5e13"
+                  strokeWidth="2"
+                  variants={lineVariants}
+                />
+              </svg>
+            </div>
+          )}
 
           {/* Mobile Vertical Connector Line */}
-          <div className="absolute top-20 bottom-25 left-8 w-0.5 block md:hidden z-0 overflow-visible">
-            <svg className="w-4 h-full overflow-visible" fill="none">
-              <motion.path
-                d="M 2,0 V 600"
-                variants={lineVariants}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-100px" }}
-                stroke="#ff5e13"
-                strokeWidth="1.5"
-                strokeDasharray="4 4"
-              />
-            </svg>
-          </div>
+          {isMeasured && (
+            <div
+              className="absolute block md:hidden z-0 overflow-visible pointer-events-none"
+              style={{
+                left: lineCoords.mobile.x,
+                top: lineCoords.mobile.y,
+                height: lineCoords.mobile.h,
+                width: 8,
+                transform: "translateX(-50%)"
+              }}
+            >
+              <svg className="w-full h-full overflow-visible" fill="none">
+                {/* Background track line */}
+                <line
+                  x1="4"
+                  y1="0"
+                  x2="4"
+                  y2={lineCoords.mobile.h}
+                  stroke="#e4e4e7"
+                  strokeWidth="2"
+                  strokeDasharray="4 4"
+                />
+                {/* Animated progress line */}
+                <motion.line
+                  x1="4"
+                  y1="0"
+                  x2="4"
+                  y2={lineCoords.mobile.h}
+                  stroke="#ff5e13"
+                  strokeWidth="2"
+                  variants={lineVariants}
+                />
+              </svg>
+            </div>
+          )}
 
           {/* Step Columns */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 lg:gap-12 relative z-10"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 lg:gap-12 relative z-10">
             {steps.map((item, idx) => (
               <motion.div
                 key={idx}
-                variants={stepVariants}
-                className="group relative flex flex-col md:items-start text-left"
+                variants={cardVariants(idx)}
+                className="group relative flex flex-col md:items-center text-left md:text-center w-full"
               >
                 {/* Visual Icon Node on Timeline */}
-                <div className="flex items-center gap-4 md:flex-col md:items-start mb-6">
-                  {/* Outer glowing index terminal */}
-                  <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-white border border-zinc-200 shadow-sm group-hover:border-brick-orange transition-colors duration-300 z-10">
-                    <span className="text-sm font-mono font-bold text-zinc-400 group-hover:text-brick-orange transition-colors duration-300">
+                <div className="relative flex items-center gap-4 md:flex-col md:items-center mb-6 w-full">
+                  {/* Step Circle */}
+                  <motion.div
+                    variants={circleVariants(idx)}
+                    className="step-circle relative flex items-center justify-center w-16 h-16 rounded-full bg-white border shadow-sm z-10"
+                  >
+                    <motion.span
+                      variants={textVariants(idx)}
+                      className="text-sm font-mono font-bold"
+                    >
                       {item.number}
-                    </span>
+                    </motion.span>
                     
-                    {/* Ring highlight on hover */}
-                    <div className="absolute -inset-1.5 rounded-full border border-brick-orange/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {/* Ring highlight on hover/activation */}
+                    <motion.div
+                      variants={ringVariants(idx)}
+                      className="absolute -inset-1.5 rounded-full border border-brick-orange/20 pointer-events-none"
+                    />
+                  </motion.div>
+
+                  {/* Desktop vertical connector line to card */}
+                  <div className="hidden md:block w-[2px] h-6 relative overflow-hidden bg-zinc-200">
+                    <motion.div
+                      className="absolute inset-0 bg-brick-orange origin-top"
+                      variants={verticalConnectorVariants(idx)}
+                    />
+                  </div>
+
+                  {/* Mobile horizontal connector line to card */}
+                  <div className="block md:hidden absolute left-8 w-12 h-[2px] bg-zinc-200 z-0" style={{ top: "32px" }}>
+                    <motion.div
+                      className="absolute inset-0 bg-brick-orange origin-left"
+                      variants={horizontalConnectorVariants(idx)}
+                    />
                   </div>
 
                   {/* Icon label badge on mobile */}
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50/50 text-[9px] font-bold text-brick-orange border border-orange-100/50 md:hidden">
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50/50 text-[9px] font-bold text-brick-orange border border-orange-100/50 md:hidden z-10">
                     {item.icon}
                     Step {item.number}
                   </span>
                 </div>
 
                 {/* Card layout body */}
-                <div className="pl-20 md:pl-0">
+                <div className="pl-20 md:pl-0 w-full">
                   {/* Icon badge on desktop */}
                   <span className="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50/50 text-[9px] font-bold text-brick-orange border border-orange-100/50 mb-4">
                     {item.icon}
@@ -227,8 +406,8 @@ export default function HowItWorks() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
         {/* Process CTA Button */}
         <div className="mt-16 sm:mt-24 text-center relative z-20">

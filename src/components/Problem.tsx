@@ -87,18 +87,18 @@ const containerVariants: Variants = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
+      staggerChildren: 0.12
     }
   }
 };
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 25 },
+  hidden: { opacity: 0, y: 15 },
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.9,
       ease: [0.16, 1, 0.3, 1]
     }
   }
