@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   try {
@@ -14,54 +14,76 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) {
-      console.error("Missing RESEND_API_KEY environment variable.");
+    const host = process.env.SMTP_HOST;
+    const portStr = process.env.SMTP_PORT;
+    const user = process.env.SMTP_USER;
+    const pass = process.env.SMTP_PASS;
+    const toEmail = process.env.TO_EMAIL;
+
+    // Validate SMTP environment variables
+    if (!host || !portStr || !user || !pass || !toEmail) {
+      console.error("Missing SMTP environment variables in route.ts:", {
+        SMTP_HOST: !!host,
+        SMTP_PORT: !!portStr,
+        SMTP_USER: !!user,
+        SMTP_PASS: !!pass,
+        TO_EMAIL: !!toEmail,
+      });
       return NextResponse.json(
         { error: "Email delivery service is currently misconfigured." },
         { status: 500 }
       );
     }
 
-    const resend = new Resend(apiKey);
-    
-    // Configurable sender from env (defaults to onboarding@resend.dev for testing/development)
-    const fromEmail = process.env.FROM_EMAIL || "BrickBytes <onboarding@resend.dev>";
-    const internalNotificationRecipient = "hello@brickbytes.in";
+    const port = parseInt(portStr, 10);
+    const transporter = nodemailer.createTransport({
+      host,
+      port,
+      secure: port === 465, // Use SSL/TLS for port 465
+      auth: {
+        user,
+        pass,
+      },
+      tls: {
+        // Essential to prevent potential self-signed/host mismatch certificate warnings in some environments
+        rejectUnauthorized: true,
+      },
+    });
+
     const timestamp = new Date().toLocaleString("en-US", { timeZone: "UTC" }) + " UTC";
 
     // Build Email #1: Internal Lead Notification
     const internalEmailHtml = `
-      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e4e4e7; rounded-lg: 8px;">
-        <h2 style="color: #ff5e13; margin-bottom: 20px; font-family: serif;">New BrickBytes Demo Request</h2>
-        <table style="width: 100%; border-collapse: collapse;">
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 25px; border: 1px solid #e4e4e7; border-radius: 12px; background-color: #ffffff;">
+        <h2 style="color: #ff5e13; margin-bottom: 24px; font-family: serif; font-weight: normal; font-size: 22px;">New BrickBytes Demo Request</h2>
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
           <tr>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; width: 140px; text-transform: uppercase; font-size: 11px; color: #71717a;">Name</td>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17;">${name}</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; width: 140px; text-transform: uppercase; font-size: 11px; color: #71717a;">Name</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17;">${name}</td>
           </tr>
           <tr>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a;">Company</td>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17;">${company}</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a;">Company</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17;">${company}</td>
           </tr>
           <tr>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a;">Email</td>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17;"><a href="mailto:${email}" style="color: #ff5e13; text-decoration: none;">${email}</a></td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a;">Email</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17;"><a href="mailto:${email}" style="color: #ff5e13; text-decoration: none;">${email}</a></td>
           </tr>
           <tr>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a;">Phone</td>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17;">${phone || "Not provided"}</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a;">Phone</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17;">${phone || "Not provided"}</td>
           </tr>
           <tr>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a;">Project Type</td>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17;">${projectType}</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a;">Project Type</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17;">${projectType}</td>
           </tr>
           <tr>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a; vertical-align: top;">Message</td>
-            <td style="padding: 8px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17; white-space: pre-line;">${message || "No message provided"}</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a; vertical-align: top;">Message</td>
+            <td style="padding: 10px 0; border-bottom: 1px solid #f4f4f5; color: #1c1a17; white-space: pre-line; line-height: 1.5;">${message || "No message provided"}</td>
           </tr>
           <tr>
-            <td style="padding: 8px 0; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a;">Submitted At</td>
-            <td style="padding: 8px 0; color: #a1a1aa; font-size: 12px;">${timestamp}</td>
+            <td style="padding: 10px 0; font-weight: bold; text-transform: uppercase; font-size: 11px; color: #71717a;">Submitted At</td>
+            <td style="padding: 10px 0; color: #a1a1aa; font-size: 12px;">${timestamp}</td>
           </tr>
         </table>
       </div>
@@ -84,7 +106,7 @@ export async function POST(request: Request) {
           <p style="color: #71717a; font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
             A BrickBytes spatial solutions expert will review your layout specifications and reach out to you shortly (typically within one business day) to set up a customized interactive demo walkthrough.
           </p>
-          <div style="border-top: 1px solid #f4f4f5; pt: 20px; padding-top: 20px;">
+          <div style="border-top: 1px solid #f4f4f5; padding-top: 20px;">
             <p style="color: #a1a1aa; font-size: 11px; margin: 0;">
               Best regards,<br />
               <strong>The BrickBytes Team</strong><br />
@@ -95,43 +117,34 @@ export async function POST(request: Request) {
       </div>
     `;
 
-    // Concurrently deliver both emails using Resend
-    const [internalResult, customerResult] = await Promise.all([
-      resend.emails.send({
-        from: fromEmail,
-        to: internalNotificationRecipient,
+    // Configure common sender name with SMTP authenticated address to comply with Hostinger SPF/DMARC policies
+    const fromSender = `"BrickBytes Support" <${user}>`;
+
+    // Concurrently deliver both emails using Nodemailer
+    await Promise.all([
+      transporter.sendMail({
+        from: fromSender,
+        to: toEmail,
+        replyTo: email, // Direct reply back to the contact submitter
         subject: "New BrickBytes Demo Request",
         html: internalEmailHtml,
-        replyTo: email, // Direct reply to the submitter's email
       }),
-      resend.emails.send({
-        from: fromEmail,
+      transporter.sendMail({
+        from: fromSender,
         to: email,
         subject: "Thank You For Contacting BrickBytes",
         html: customerEmailHtml,
       }),
     ]);
 
-    // Check for errors in the email dispatches
-    if (internalResult.error || customerResult.error) {
-      console.error("Resend error:", {
-        internal: internalResult.error,
-        customer: customerResult.error,
-      });
-      return NextResponse.json(
-        { 
-          error: "Failed to dispatch notification emails.", 
-          details: internalResult.error || customerResult.error 
-        },
-        { status: 500 }
-      );
-    }
-
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("API error:", error);
+    console.error("SMTP API route error caught:", error);
     return NextResponse.json(
-      { error: "An unexpected server error occurred." },
+      { 
+        error: "An error occurred while dispatching the emails.",
+        details: error instanceof Error ? error.message : String(error)
+      },
       { status: 500 }
     );
   }

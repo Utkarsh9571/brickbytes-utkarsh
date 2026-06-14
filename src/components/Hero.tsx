@@ -1172,22 +1172,10 @@ export default function Hero() {
                     {/* Actions Workflow: Drone View toggle & Add to Compare */}
                     <div className="grid grid-cols-2 gap-2 mt-4 pt-2 border-t border-zinc-200/40">
                       <button
-                        onClick={() => {
-                          if (viewMode === "drone") {
-                            setViewMode("3d");
-                            setDronePlotId(null);
-                          } else {
-                            setViewMode("drone");
-                            setDronePlotId(currentPlot.id);
-                          }
-                        }}
-                        className={`w-full py-2.5 rounded text-[9px] font-bold tracking-wider uppercase border transition-colors ${
-                          viewMode === "drone"
-                            ? "bg-brick-orange border-brick-orange text-white animate-pulse"
-                            : "bg-white border-zinc-200 hover:bg-zinc-50 text-zinc-700"
-                        }`}
+                        onClick={() => setToastMessage(`Drone view for ${currentPlot.id} is coming soon.`)}
+                        className="w-full py-2.5 rounded text-[9px] font-bold tracking-wider uppercase border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-700 transition-colors"
                       >
-                        {viewMode === "drone" ? "Exit Drone" : "Drone View"}
+                        Drone View
                       </button>
 
                       <button
@@ -1527,22 +1515,10 @@ export default function Hero() {
 
             <div className="grid grid-cols-2 gap-3 mt-1 pt-3 border-t border-zinc-100">
               <button
-                onClick={() => {
-                  if (viewMode === "drone") {
-                    setViewMode("3d");
-                    setDronePlotId(null);
-                  } else {
-                    setViewMode("drone");
-                    setDronePlotId(currentPlot.id);
-                  }
-                }}
-                className={`w-full py-2.5 rounded-lg text-xs font-bold tracking-wider uppercase border transition-colors ${
-                  viewMode === "drone"
-                    ? "bg-brick-orange border-brick-orange text-white animate-pulse"
-                    : "bg-white border-zinc-200 text-zinc-700"
-                }`}
+                onClick={() => setToastMessage(`Drone view for ${currentPlot.id} is coming soon.`)}
+                className="w-full py-2.5 rounded-lg text-xs font-bold tracking-wider uppercase border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 transition-colors"
               >
-                {viewMode === "drone" ? "Exit Drone" : "Drone View"}
+                Drone View
               </button>
 
               <button
