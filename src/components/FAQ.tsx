@@ -129,7 +129,7 @@ export default function FAQ() {
         {/* Bottom CTA Hook */}
         <div className="mt-12 text-left pl-6">
           <a
-            href="#contact"
+            href="/contact"
             className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-brick-orange hover:text-brick-orange/80 transition-colors group"
           >
             <span>Have a different question? Contact Sales</span>

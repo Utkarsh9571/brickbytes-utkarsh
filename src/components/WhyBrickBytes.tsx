@@ -200,7 +200,7 @@ export default function WhyBrickBytes() {
         {/* Optional Secondary Case Studies link */}
         <div className="mt-16 sm:mt-20 text-center">
           <a
-            href="#book-demo"
+            href="/contact"
             className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brick-orange hover:text-brick-orange/80 transition-colors group"
           >
             <span>Explore Developer Case Studies</span>

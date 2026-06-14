@@ -167,7 +167,7 @@ export default function About() {
             {/* Optional bottom link */}
             <div className="mt-10 text-left pl-6">
               <a
-                href="#book-demo"
+                href="/contact"
                 className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-brick-orange hover:text-brick-orange/80 transition-colors group"
               >
                 <span>Connect with our team</span>

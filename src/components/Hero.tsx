@@ -460,7 +460,7 @@ export default function Hero() {
           className="flex flex-row items-center justify-center gap-3 sm:gap-5 mb-5 sm:mb-10 w-full sm:w-auto px-4"
         >
           <a
-            href="#book-demo"
+            href="/contact"
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 sm:px-8 sm:py-4 rounded-lg bg-brick-orange hover:bg-brick-orange/95 text-white font-semibold text-xs sm:text-sm transition-all duration-300 shadow-md shadow-brick-orange/20 hover:shadow-brick-orange/30 group"
           >
             <span>Book Demo</span>

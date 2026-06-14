@@ -412,7 +412,7 @@ export default function HowItWorks() {
         {/* Process CTA Button */}
         <div className="mt-16 sm:mt-24 text-center relative z-20">
           <a
-            href="#book-demo"
+            href="/contact"
             className="inline-flex items-center gap-2.5 px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl bg-brick-orange hover:bg-brick-orange/95 text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 shadow-md shadow-brick-orange/20 hover:shadow-brick-orange/30 group"
           >
             <span>Launch Your Project</span>

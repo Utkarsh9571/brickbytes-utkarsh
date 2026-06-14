@@ -222,7 +222,7 @@ export default function Transformation() {
             <div className="mt-8 pt-6 border-t border-zinc-200/50 text-[11px] font-sans font-light text-zinc-500 flex items-center justify-between">
               <span className="italic text-zinc-400">* Empowers instant visual verification and closes deals faster.</span>
               <a
-                href="#book-demo"
+                href="/contact"
                 className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-brick-orange hover:text-brick-orange/80 transition-colors"
               >
                 Learn More <ArrowRight className="w-3 h-3" />

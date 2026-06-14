@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowUp, Mail, Phone, MapPin, Home } from "lucide-react";
+import { ArrowUp, Mail, MapPin, Home, MessageCircle, Calendar } from "lucide-react";
 import Link from "next/link";
 import InteractiveGrid from "./InteractiveGrid";
 
@@ -12,12 +12,11 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-[#fbfbfa] text-[#1c1a17] py-16 sm:py-20 border-t border-zinc-200/80 z-20">
-      {/* Background blueprint fine grid lines */}
       <InteractiveGrid opacity={0.3} />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
         {/* Main Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-8 sm:gap-12 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 sm:gap-12 mb-16">
           
           {/* Column 1: Brand Info */}
           <div className="col-span-2 flex flex-col gap-6 text-left">
@@ -33,54 +32,6 @@ export default function Footer() {
             <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-sans font-light">
               Transforming static layout blueprints into interactive digital sales experiences for modern real estate developments.
             </p>
-            
-            {/* Social Links */}
-            <div className="flex items-center gap-3">
-              {[
-                { 
-                  icon: (
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                  ), 
-                  href: "#linkedin" 
-                },
-                { 
-                  icon: (
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                  ), 
-                  href: "#twitter" 
-                },
-                { 
-                  icon: (
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                    </svg>
-                  ), 
-                  href: "#instagram" 
-                },
-                { 
-                  icon: (
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.524 3.545 12 3.545 12 3.545s-7.525 0-9.388.51a3.002 3.002 0 0 0-2.11 2.108C0 8.024 0 12 0 12s0 3.976.502 5.837a3.003 3.003 0 0 0 2.11 2.108c1.863.51 9.388.51 9.388.51s7.524 0 9.388-.51a3.002 3.002 0 0 0 2.11-2.108c.502-1.861.502-5.837.502-5.837s0-3.976-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
-                  ), 
-                  href: "#youtube" 
-                }
-              ].map((social, sIdx) => (
-                <a
-                  key={sIdx}
-                  href={social.href}
-                  className="flex items-center justify-center w-8 h-8 rounded-full border border-zinc-200 hover:border-brick-orange hover:text-brick-orange bg-white text-zinc-500 transition-all duration-200 shadow-sm"
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Column 2: Product */}
@@ -90,11 +41,9 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2.5">
               {[
-                { name: "Interactive Maps", href: "/technology" },
-                { name: "3D Visualization", href: "/technology" },
-                { name: "Drone Reality", href: "/technology" },
-                { name: "Broker Workspace", href: "/technology" },
-                { name: "Developer Engine", href: "/technology" }
+                { name: "Technology", href: "/technology" },
+                { name: "How It Works", href: "/how-it-works" },
+                { name: "Pricing", href: "/pricing" },
               ].map((link, idx) => (
                 <li key={idx}>
                   <Link
@@ -109,41 +58,15 @@ export default function Footer() {
           </div>
 
           {/* Column 3: Company */}
-          <div className="col-span-1 flex flex-col gap-4 text-left">
-            <h4 className="text-[10px] font-mono font-bold tracking-widest text-zinc-400 uppercase">
-              Company
-            </h4>
-            <ul className="flex flex-col gap-2.5">
-              {[
-                { name: "About Us", href: "/" },
-                { name: "Why BrickBytes", href: "/pricing" },
-                { name: "How It Works", href: "/how-it-works" },
-                { name: "Case Studies", href: "/" },
-                { name: "Careers", href: "/contact" }
-              ].map((link, idx) => (
-                <li key={idx}>
-                  <Link
-                    href={link.href}
-                    className="text-xs sm:text-sm text-zinc-500 hover:text-brick-orange font-sans font-light transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4: Resources & Legal */}
           <div className="col-span-1 flex flex-col gap-6 text-left">
             <div className="flex flex-col gap-4">
               <h4 className="text-[10px] font-mono font-bold tracking-widest text-zinc-400 uppercase">
-                Resources
+                Company
               </h4>
               <ul className="flex flex-col gap-2.5">
                 {[
-                  { name: "Documentation", href: "/how-it-works" },
-                  { name: "Client Portal", href: "/contact" },
-                  { name: "Support Hub", href: "/contact" }
+                  { name: "About", href: "/about" },
+                  { name: "Contact", href: "/contact" },
                 ].map((link, idx) => (
                   <li key={idx}>
                     <Link
@@ -165,7 +88,6 @@ export default function Footer() {
                 {[
                   { name: "Privacy Policy", href: "#privacy" },
                   { name: "Terms of Service", href: "#terms" },
-                  { name: "Security Audits", href: "#security" }
                 ].map((link, idx) => (
                   <li key={idx}>
                     <a
@@ -180,30 +102,39 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 5: Contact */}
+          {/* Column 4: Get In Touch */}
           <div className="col-span-1 flex flex-col gap-4 text-left">
             <h4 className="text-[10px] font-mono font-bold tracking-widest text-zinc-400 uppercase">
-              Contact
+              Get In Touch
             </h4>
-            <ul className="flex flex-col gap-3.5">
-              <li className="flex items-start gap-2 text-xs sm:text-sm text-zinc-500 font-sans font-light">
-                <MapPin className="w-4 h-4 text-brick-orange mt-0.5 shrink-0" />
-                <span>Khushi Sansar, Lakshmi Nikunj, Rampura Road, Mohanpura, Jaipur, Rajasthan 302020, India</span>
+            <ul className="flex flex-col gap-3">
+              <li>
+                <a
+                  href="https://wa.me/919507321260"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs sm:text-sm text-zinc-500 hover:text-emerald-600 font-sans font-light transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>WhatsApp</span>
+                </a>
               </li>
-              <li className="flex items-center gap-2 text-xs sm:text-sm text-zinc-500 font-sans font-light hover:text-brick-orange transition-colors">
-                <Mail className="w-4 h-4 text-brick-orange shrink-0" />
-                <a href="mailto:business@brickbytes.in">business@brickbytes.in</a>
+              <li>
+                <a
+                  href="mailto:business@brickbytes.in"
+                  className="flex items-center gap-2 text-xs sm:text-sm text-zinc-500 hover:text-brick-orange font-sans font-light transition-colors"
+                >
+                  <Mail className="w-4 h-4 text-brick-orange shrink-0" />
+                  <span>Email</span>
+                </a>
               </li>
-              <li className="flex items-center gap-2 text-xs sm:text-sm text-zinc-500 font-sans font-light hover:text-brick-orange transition-colors">
-                <Phone className="w-4 h-4 text-brick-orange shrink-0" />
-                <a href="tel:+919507321260">+91 9507321260</a>
-              </li>
-              <li className="mt-1">
+              <li>
                 <Link
                   href="/contact"
-                  className="text-xs sm:text-sm text-brick-orange hover:text-brick-orange/80 font-sans font-medium transition-colors"
+                  className="flex items-center gap-2 text-xs sm:text-sm text-zinc-500 hover:text-brick-orange font-sans font-light transition-colors"
                 >
-                  Contact Page →
+                  <Calendar className="w-4 h-4 text-brick-orange shrink-0" />
+                  <span>Book Demo</span>
                 </Link>
               </li>
             </ul>
@@ -211,13 +142,33 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Banner Area */}
-        <div className="border-t border-zinc-200/80 pt-8 mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Company Information Strip */}
+        <div className="border-t border-zinc-200/80 pt-8 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-8 text-left">
+            <div className="text-xs text-zinc-400 font-sans font-light">
+              <span className="font-medium text-zinc-500">BrickNova Technologies Private Limited</span>
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
+              <span className="flex items-center gap-1.5 text-xs text-zinc-400 font-sans font-light">
+                <MapPin className="w-3 h-3 text-brick-orange shrink-0" />
+                Jaipur, Rajasthan, India
+              </span>
+              <span className="text-xs text-zinc-400 font-mono font-light">
+                CIN: U62011RJ2026PTC113544
+              </span>
+              <span className="text-xs text-zinc-400 font-mono font-light">
+                GSTIN: 08AAOCB6672J1Z2
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Banner */}
+        <div className="border-t border-zinc-200/80 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-zinc-400 font-sans font-light">
             &copy; 2026 BrickBytes Inc. All rights reserved.
           </p>
           
-          {/* Scroll to top button */}
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-zinc-200 hover:border-brick-orange hover:text-brick-orange bg-white text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm group"

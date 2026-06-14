@@ -259,7 +259,7 @@ export default function ProductEcosystem() {
                 {/* CTA Action Link */}
                 <div className="mt-8 pt-6 border-t border-zinc-100 flex items-center justify-between">
                   <a
-                    href="#book-demo"
+                    href="/contact"
                     className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-brick-orange group-hover:text-brick-orange/80 transition-colors"
                   >
                     <span>Request Access</span>
