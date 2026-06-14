@@ -86,16 +86,16 @@ export default function Footer() {
               </h4>
               <ul className="flex flex-col gap-2.5">
                 {[
-                  { name: "Privacy Policy", href: "#privacy" },
-                  { name: "Terms of Service", href: "#terms" },
+                  { name: "Privacy Policy", href: "/privacy" },
+                  { name: "Terms of Service", href: "/terms" },
                 ].map((link, idx) => (
                   <li key={idx}>
-                    <a
+                    <Link
                       href={link.href}
                       className="text-xs sm:text-sm text-zinc-500 hover:text-brick-orange font-sans font-light transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

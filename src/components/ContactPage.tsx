@@ -53,7 +53,9 @@ export default function ContactPage() {
     message: "",
   });
 
+  const [isSending, setIsSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -61,11 +63,36 @@ export default function ContactPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Ready for future backend integration
-    console.log("Form submitted:", form);
-    setSubmitted(true);
+    if (isSending) return;
+
+    setIsSending(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to submit demo request.");
+      }
+
+      setSubmitted(true);
+    } catch (err: unknown) {
+      console.error("Submission error:", err);
+      const message = err instanceof Error ? err.message : "An unexpected error occurred. Please try again.";
+      setError(message);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -207,6 +234,12 @@ export default function ContactPage() {
                 onSubmit={handleSubmit}
                 className="bg-white border border-zinc-200/60 rounded-3xl p-8 sm:p-10 shadow-sm"
               >
+                {error && (
+                  <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 text-xs sm:text-sm text-red-600 text-left">
+                    {error}
+                  </div>
+                )}
+                
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                   {/* Name */}
                   <div className="flex flex-col gap-1.5">
@@ -219,10 +252,11 @@ export default function ContactPage() {
                       type="text"
                       name="name"
                       required
+                      disabled={isSending}
                       value={form.name}
                       onChange={handleChange}
                       placeholder="Your full name"
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans placeholder:text-zinc-400 focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans placeholder:text-zinc-400 focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
 
@@ -237,10 +271,11 @@ export default function ContactPage() {
                       type="text"
                       name="company"
                       required
+                      disabled={isSending}
                       value={form.company}
                       onChange={handleChange}
                       placeholder="Company name"
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans placeholder:text-zinc-400 focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans placeholder:text-zinc-400 focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
 
@@ -254,10 +289,11 @@ export default function ContactPage() {
                       id="contact-phone"
                       type="tel"
                       name="phone"
+                      disabled={isSending}
                       value={form.phone}
                       onChange={handleChange}
                       placeholder="+91 98765 43210"
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans placeholder:text-zinc-400 focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans placeholder:text-zinc-400 focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
 
@@ -272,10 +308,11 @@ export default function ContactPage() {
                       type="email"
                       name="email"
                       required
+                      disabled={isSending}
                       value={form.email}
                       onChange={handleChange}
                       placeholder="you@company.com"
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans placeholder:text-zinc-400 focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans placeholder:text-zinc-400 focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
                 </div>
@@ -290,9 +327,10 @@ export default function ContactPage() {
                     id="contact-project-type"
                     name="projectType"
                     required
+                    disabled={isSending}
                     value={form.projectType}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all appearance-none cursor-pointer"
+                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <option value="" disabled>
                       Select project type
@@ -315,20 +353,31 @@ export default function ContactPage() {
                     id="contact-message"
                     name="message"
                     rows={4}
+                    disabled={isSending}
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Tell us about your project — number of plots, location, timeline..."
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans placeholder:text-zinc-400 focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all resize-none"
+                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-[#fbfbfa] text-sm text-zinc-900 font-sans placeholder:text-zinc-400 focus:outline-none focus:border-brick-orange/50 focus:ring-1 focus:ring-brick-orange/20 transition-all resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
 
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-brick-orange hover:bg-brick-orange/95 text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors duration-300 shadow-xl shadow-brick-orange/20 group"
+                  disabled={isSending}
+                  className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-brick-orange hover:bg-brick-orange/95 text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors duration-300 shadow-xl shadow-brick-orange/20 group disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <span>Request Demo</span>
-                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  {isSending ? (
+                    <>
+                      <span>Sending...</span>
+                      <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      <span>Request Demo</span>
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                    </>
+                  )}
                 </button>
               </motion.form>
             )}
