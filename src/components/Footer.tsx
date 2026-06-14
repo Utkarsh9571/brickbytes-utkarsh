@@ -188,15 +188,15 @@ export default function Footer() {
             <ul className="flex flex-col gap-3.5">
               <li className="flex items-start gap-2 text-xs sm:text-sm text-zinc-500 font-sans font-light">
                 <MapPin className="w-4 h-4 text-brick-orange mt-0.5 shrink-0" />
-                <span>82 Boundary Avenue, Suite 400, San Francisco, CA</span>
+                <span>Khushi Sansar, Lakshmi Nikunj, Rampura Road, Mohanpura, Jaipur, Rajasthan 302020, India</span>
               </li>
               <li className="flex items-center gap-2 text-xs sm:text-sm text-zinc-500 font-sans font-light hover:text-brick-orange transition-colors">
                 <Mail className="w-4 h-4 text-brick-orange shrink-0" />
-                <a href="mailto:sales@brickbytes.io">sales@brickbytes.io</a>
+                <a href="mailto:business@brickbytes.in">business@brickbytes.in</a>
               </li>
               <li className="flex items-center gap-2 text-xs sm:text-sm text-zinc-500 font-sans font-light hover:text-brick-orange transition-colors">
                 <Phone className="w-4 h-4 text-brick-orange shrink-0" />
-                <a href="tel:+18005550142">+1 (800) 555-0142</a>
+                <a href="tel:+919507321260">+91 9507321260</a>
               </li>
               <li className="mt-1">
                 <Link

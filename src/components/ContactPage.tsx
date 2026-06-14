@@ -117,7 +117,7 @@ export default function ContactPage() {
             {/* WhatsApp Card */}
             <motion.a
               variants={fadeUp}
-              href="https://wa.me/918005550142"
+              href="https://wa.me/919507321260"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative bg-white border border-zinc-200/60 rounded-3xl p-8 sm:p-10 transition-all duration-300 shadow-sm hover:border-emerald-400/50 hover:shadow-luxury-deep card-hover-accent accent-radius-3xl text-left"
@@ -141,7 +141,7 @@ export default function ContactPage() {
             {/* Email Card */}
             <motion.a
               variants={fadeUp}
-              href="mailto:sales@brickbytes.io"
+              href="mailto:business@brickbytes.in"
               className="group relative bg-white border border-zinc-200/60 rounded-3xl p-8 sm:p-10 transition-all duration-300 shadow-sm hover:border-brick-orange/40 hover:shadow-luxury-deep card-hover-accent accent-radius-3xl text-left"
             >
               <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-orange-50 border border-orange-100/50 mb-6">
@@ -154,7 +154,7 @@ export default function ContactPage() {
                 Send us a detailed inquiry. We&apos;ll get back to you within one business day with a tailored response.
               </p>
               <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-brick-orange group-hover:text-brick-orange/80 transition-colors">
-                <span>sales@brickbytes.io</span>
+                <span>business@brickbytes.in</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
               </span>
             </motion.a>
@@ -369,9 +369,11 @@ export default function ContactPage() {
                     Registered Office
                   </div>
                   <p className="text-xs sm:text-sm text-zinc-600 font-sans font-light leading-relaxed">
-                    82 Boundary Avenue, Suite 400,
+                    Khushi Sansar, Lakshmi Nikunj,
                     <br />
-                    San Francisco, CA
+                    Rampura Road, Mohanpura,
+                    <br />
+                    Jaipur, Rajasthan 302020, India
                   </p>
                 </div>
               </div>
@@ -386,7 +388,7 @@ export default function ContactPage() {
                     CIN
                   </div>
                   <p className="text-xs sm:text-sm text-zinc-600 font-mono font-light leading-relaxed">
-                    U72900KA2024PTC123456
+                    U62011RJ2026PTC113544
                   </p>
                 </div>
               </div>
@@ -401,7 +403,7 @@ export default function ContactPage() {
                     GSTIN
                   </div>
                   <p className="text-xs sm:text-sm text-zinc-600 font-mono font-light leading-relaxed">
-                    29AABCU9603R1ZP
+                    08AAOCB6672J1Z2
                   </p>
                 </div>
               </div>

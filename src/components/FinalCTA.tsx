@@ -104,7 +104,7 @@ export default function FinalCTA() {
             variants={buttonVariants}
             whileHover={{ y: -2 }}
             whileTap={{ y: 0 }}
-            href="#book-demo"
+            href="/contact"
             className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-brick-orange hover:bg-brick-orange/95 text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors duration-300 shadow-xl shadow-brick-orange/20"
           >
             <Calendar className="w-4 h-4" />
@@ -116,7 +116,7 @@ export default function FinalCTA() {
             variants={buttonVariants}
             whileHover={{ y: -2 }}
             whileTap={{ y: 0 }}
-            href="#contact-us"
+            href="/contact"
             className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-transparent border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-colors duration-300"
           >
             <PhoneCall className="w-4 h-4" />
