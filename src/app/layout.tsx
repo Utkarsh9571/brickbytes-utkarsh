@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Lora } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { constructMetadata } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,10 +20,11 @@ const lora = Lora({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const metadata: Metadata = constructMetadata({
   title: "BrickBytes | Turn Layout Plans into Digital Sales Experiences",
   description: "Luxury interactive subdivision and plot visualization for real-estate developers and builders.",
-};
+  path: "/",
+});
 
 export default function RootLayout({
   children,

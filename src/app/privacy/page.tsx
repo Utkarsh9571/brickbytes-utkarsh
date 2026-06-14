@@ -2,11 +2,13 @@ import React from "react";
 import type { Metadata } from "next";
 import InteractiveGrid from "@/components/InteractiveGrid";
 import FinalCTA from "@/components/FinalCTA";
+import { constructMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = constructMetadata({
   title: "BrickBytes | Privacy Policy",
   description: "Learn about how BrickBytes collects, stores, and handles your data safely and transparently.",
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   const lastUpdated = "June 14, 2026";

@@ -2,11 +2,13 @@ import React from "react";
 import type { Metadata } from "next";
 import InteractiveGrid from "@/components/InteractiveGrid";
 import FinalCTA from "@/components/FinalCTA";
+import { constructMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = constructMetadata({
   title: "BrickBytes | Terms of Service",
   description: "Read the Terms of Service for using BrickBytes interactive platform solutions.",
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   const lastUpdated = "June 14, 2026";
