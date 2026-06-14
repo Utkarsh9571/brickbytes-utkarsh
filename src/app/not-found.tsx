@@ -31,7 +31,7 @@ export default function NotFound() {
 
           {/* Friendly copy */}
           <p className="text-sm sm:text-base text-zinc-500 font-sans font-light leading-relaxed mb-8">
-            The coordinates or page you are looking for doesn't exist, has been archived, or moved to another development block. Let's get you back on the master map.
+            The coordinates or page you are looking for {"doesn't"} exist, has been archived, or moved to another development block. {"Let's"} get you back on the master map.
           </p>
 
           {/* CTA Button */}

@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { RotateCcw, Mail, ArrowRight } from "lucide-react";
+import { RotateCcw, Mail } from "lucide-react";
 import InteractiveGrid from "@/components/InteractiveGrid";
 
 interface ErrorProps {
