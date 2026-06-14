@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ArrowUp, Mail, Phone, MapPin, Home } from "lucide-react";
+import Link from "next/link";
 import InteractiveGrid from "./InteractiveGrid";
 
 export default function Footer() {
@@ -20,20 +21,20 @@ export default function Footer() {
           
           {/* Column 1: Brand Info */}
           <div className="col-span-2 flex flex-col gap-6 text-left">
-            <div className="flex items-center gap-2.5 group cursor-pointer">
+            <Link href="/" className="flex items-center gap-2.5 group cursor-pointer">
               <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-brick-orange text-white shadow-md shadow-brick-orange/20 transition-all duration-300">
                 <Home className="w-4.5 h-4.5" />
               </div>
               <span className="text-lg font-bold tracking-tight text-[#1c1a17]">
                 Brick<span className="text-brick-orange">Bytes</span>
               </span>
-            </div>
+            </Link>
             
             <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-sans font-light">
               Transforming static layout blueprints into interactive digital sales experiences for modern real estate developments.
             </p>
             
-            {/* Social Links Placeholders */}
+            {/* Social Links */}
             <div className="flex items-center gap-3">
               {[
                 { 
@@ -89,19 +90,19 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2.5">
               {[
-                { name: "Interactive Maps", href: "#features" },
-                { name: "3D Visualization", href: "#features" },
-                { name: "Drone Reality", href: "#features" },
-                { name: "Broker Workspace", href: "#platform" },
-                { name: "Developer Engine", href: "#platform" }
+                { name: "Interactive Maps", href: "/technology" },
+                { name: "3D Visualization", href: "/technology" },
+                { name: "Drone Reality", href: "/technology" },
+                { name: "Broker Workspace", href: "/technology" },
+                { name: "Developer Engine", href: "/technology" }
               ].map((link, idx) => (
                 <li key={idx}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-xs sm:text-sm text-zinc-500 hover:text-brick-orange font-sans font-light transition-colors"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -114,19 +115,19 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2.5">
               {[
-                { name: "About Us", href: "#about" },
-                { name: "Why BrickBytes", href: "#why-brickbytes" },
-                { name: "Careers", href: "#book-demo" },
-                { name: "Case Studies", href: "#use-cases" },
-                { name: "Press Kit", href: "#book-demo" }
+                { name: "About Us", href: "/" },
+                { name: "Why BrickBytes", href: "/pricing" },
+                { name: "How It Works", href: "/how-it-works" },
+                { name: "Case Studies", href: "/" },
+                { name: "Careers", href: "/contact" }
               ].map((link, idx) => (
                 <li key={idx}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-xs sm:text-sm text-zinc-500 hover:text-brick-orange font-sans font-light transition-colors"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -140,17 +141,17 @@ export default function Footer() {
               </h4>
               <ul className="flex flex-col gap-2.5">
                 {[
-                  { name: "Documentation", href: "#book-demo" },
-                  { name: "Client Portal", href: "#book-demo" },
-                  { name: "Support Hub", href: "#book-demo" }
+                  { name: "Documentation", href: "/how-it-works" },
+                  { name: "Client Portal", href: "/contact" },
+                  { name: "Support Hub", href: "/contact" }
                 ].map((link, idx) => (
                   <li key={idx}>
-                    <a
+                    <Link
                       href={link.href}
                       className="text-xs sm:text-sm text-zinc-500 hover:text-brick-orange font-sans font-light transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -196,6 +197,14 @@ export default function Footer() {
               <li className="flex items-center gap-2 text-xs sm:text-sm text-zinc-500 font-sans font-light hover:text-brick-orange transition-colors">
                 <Phone className="w-4 h-4 text-brick-orange shrink-0" />
                 <a href="tel:+18005550142">+1 (800) 555-0142</a>
+              </li>
+              <li className="mt-1">
+                <Link
+                  href="/contact"
+                  className="text-xs sm:text-sm text-brick-orange hover:text-brick-orange/80 font-sans font-medium transition-colors"
+                >
+                  Contact Page →
+                </Link>
               </li>
             </ul>
           </div>
