@@ -473,7 +473,7 @@ export default function Hero() {
               </a>
 
               <a
-                href="#watch-experience"
+                href="/contact"
                 className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 sm:px-8 sm:py-4 rounded-lg bg-white hover:bg-zinc-50 text-zinc-800 font-semibold text-xs sm:text-sm border border-zinc-200 transition-all duration-300 group"
               >
                 <Play className="w-3.5 h-3.5 text-zinc-500 fill-zinc-500 group-hover:text-brick-orange group-hover:fill-brick-orange transition-colors" />
