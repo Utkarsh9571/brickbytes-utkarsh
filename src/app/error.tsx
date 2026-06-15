@@ -19,7 +19,7 @@ export default function Error({ error, reset }: ErrorProps) {
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-[#fbfbfa] text-[#1c1a17] px-4 overflow-hidden">
       {/* Dynamic architectural grid background */}
-      <InteractiveGrid opacity={0.35} />
+      <InteractiveGrid opacity={0.55} />
 
       <div className="relative max-w-lg w-full text-center z-10">
         <motion.div

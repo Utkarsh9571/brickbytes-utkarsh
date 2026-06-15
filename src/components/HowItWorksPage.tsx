@@ -101,7 +101,7 @@ export default function HowItWorksPage() {
     <>
       {/* ─── Hero ─── */}
       <section className="relative bg-[#fbfbfa] text-[#1c1a17] pt-36 sm:pt-44 pb-16 sm:pb-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.4} />
+        <InteractiveGrid opacity={0.6} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div initial="hidden" animate="show" variants={stagger} className="max-w-3xl text-left">
             <motion.div variants={fadeUp} className="text-[10px] uppercase tracking-[0.25em] font-mono font-bold text-brick-orange mb-3">
@@ -129,7 +129,7 @@ export default function HowItWorksPage() {
             idx % 2 === 0 ? "bg-white" : "bg-[#fbfbfa]"
           }`}
         >
-          <InteractiveGrid opacity={0.25} />
+          <InteractiveGrid opacity={0.4} />
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 w-full">
             <motion.div
               initial="hidden"
@@ -184,7 +184,7 @@ export default function HowItWorksPage() {
 
       {/* ─── Expected Outcomes ─── */}
       <section className="relative bg-[#fbfbfa] text-[#1c1a17] py-16 sm:py-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.3} />
+        <InteractiveGrid opacity={0.45} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div
             initial="hidden"

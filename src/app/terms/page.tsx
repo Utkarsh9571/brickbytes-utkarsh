@@ -17,7 +17,7 @@ export default function TermsPage() {
     <>
       {/* ─── Hero Section ─── */}
       <section className="relative bg-[#fbfbfa] text-[#1c1a17] pt-36 sm:pt-44 pb-16 sm:pb-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.4} />
+        <InteractiveGrid opacity={0.6} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <div className="max-w-3xl text-left">
             <div className="text-[10px] uppercase tracking-[0.25em] font-mono font-bold text-brick-orange mb-3">
@@ -35,7 +35,7 @@ export default function TermsPage() {
 
       {/* ─── Document Content ─── */}
       <section className="relative bg-white text-[#1c1a17] py-16 sm:py-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.2} />
+        <InteractiveGrid opacity={0.3} />
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <div className="flex flex-col gap-10 text-left font-sans font-light text-sm sm:text-base text-zinc-600 leading-relaxed">
             

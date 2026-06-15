@@ -31,9 +31,39 @@ const fadeUp: Variants = {
   },
 };
 
+const slideInLeft: Variants = {
+  hidden: { opacity: 0, x: -50, scale: 0.95 },
+  show: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.8 },
+  },
+};
+
+const springUp: Variants = {
+  hidden: { opacity: 0, y: 50, scale: 0.92 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 70, damping: 12, duration: 0.9 },
+  },
+};
+
+const slideInRight: Variants = {
+  hidden: { opacity: 0, x: 50, scale: 0.95 },
+  show: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.8 },
+  },
+};
+
 const stagger: Variants = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  show: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
 /* ──────────────────────────────────────
@@ -106,7 +136,7 @@ export default function PricingPage() {
     <>
       {/* ─── Hero ─── */}
       <section className="relative bg-[#fbfbfa] text-[#1c1a17] pt-36 sm:pt-44 pb-16 sm:pb-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.4} />
+        <InteractiveGrid opacity={0.6} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div initial="hidden" animate="show" variants={stagger} className="max-w-3xl text-left">
             <motion.div variants={fadeUp} className="text-[10px] uppercase tracking-[0.25em] font-mono font-bold text-brick-orange mb-3">
@@ -125,7 +155,7 @@ export default function PricingPage() {
 
       {/* ─── Why Custom Pricing ─── */}
       <section className="relative bg-white text-[#1c1a17] py-16 sm:py-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.3} />
+        <InteractiveGrid opacity={0.45} />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div
             initial="hidden"
@@ -157,7 +187,7 @@ export default function PricingPage() {
 
       {/* ─── Tier Cards ─── */}
       <section className="relative bg-[#fbfbfa] text-[#1c1a17] py-16 sm:py-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.3} />
+        <InteractiveGrid opacity={0.45} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div
             initial="hidden"
@@ -175,16 +205,18 @@ export default function PricingPage() {
             </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {tiers.map((tier, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={fadeUp}
-                  className={`group relative bg-white rounded-3xl p-8 sm:p-10 text-left transition-all duration-300 flex flex-col justify-between card-hover-accent accent-radius-3xl ${
-                    tier.featured
-                      ? "border-2 border-brick-orange/40 shadow-luxury-deep"
-                      : "border border-zinc-200/60 hover:border-brick-orange/40 hover:shadow-luxury-deep"
-                  }`}
-                >
+              {tiers.map((tier, idx) => {
+                const cardVariant = idx === 0 ? slideInLeft : idx === 1 ? springUp : slideInRight;
+                return (
+                  <motion.div
+                    key={idx}
+                    variants={cardVariant}
+                    className={`group relative bg-white rounded-3xl p-8 sm:p-10 text-left transition-all duration-300 flex flex-col justify-between card-hover-accent accent-radius-3xl ${
+                      tier.featured
+                        ? "border-2 border-brick-orange/40 shadow-luxury-deep"
+                        : "border border-zinc-200/60 hover:border-brick-orange/40 hover:shadow-luxury-deep"
+                    }`}
+                  >
                   {tier.featured && (
                     <div className="absolute -top-3 left-8 px-3 py-1 bg-brick-orange text-white text-[9px] font-mono font-bold tracking-widest uppercase rounded-full">
                       Most Common
@@ -245,7 +277,8 @@ export default function PricingPage() {
                     </Link>
                   </div>
                 </motion.div>
-              ))}
+              );
+            })}
             </div>
           </motion.div>
         </div>
@@ -253,7 +286,7 @@ export default function PricingPage() {
 
       {/* ─── Feature Comparison ─── */}
       <section className="relative bg-white text-[#1c1a17] py-16 sm:py-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.25} />
+        <InteractiveGrid opacity={0.4} />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div
             initial="hidden"

@@ -28,9 +28,39 @@ const fadeUp: Variants = {
   },
 };
 
+const slideInLeft: Variants = {
+  hidden: { opacity: 0, x: -50, scale: 0.95 },
+  show: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.8 },
+  },
+};
+
+const springUp: Variants = {
+  hidden: { opacity: 0, y: 50, scale: 0.92 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 70, damping: 12, duration: 0.9 },
+  },
+};
+
+const slideInRight: Variants = {
+  hidden: { opacity: 0, x: 50, scale: 0.95 },
+  show: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.8 },
+  },
+};
+
 const stagger: Variants = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  show: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
 /* ──────────────────────────────────────
@@ -99,7 +129,7 @@ export default function AboutPage() {
     <>
       {/* ─── Hero ─── */}
       <section className="relative bg-[#fbfbfa] text-[#1c1a17] pt-36 sm:pt-44 pb-16 sm:pb-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.4} />
+        <InteractiveGrid opacity={0.6} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div initial="hidden" animate="show" variants={stagger} className="max-w-3xl text-left">
             <motion.div variants={fadeUp} className="text-[10px] uppercase tracking-[0.25em] font-mono font-bold text-brick-orange mb-3">
@@ -118,7 +148,7 @@ export default function AboutPage() {
 
       {/* ─── Mission / Vision / Philosophy ─── */}
       <section className="relative bg-white text-[#1c1a17] py-16 sm:py-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.3} />
+        <InteractiveGrid opacity={0.45} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div
             initial="hidden"
@@ -136,12 +166,14 @@ export default function AboutPage() {
             </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {missionItems.map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={fadeUp}
-                  className="group bg-white border border-zinc-200/60 rounded-3xl p-8 sm:p-10 text-left hover:border-brick-orange/40 hover:shadow-luxury-deep transition-all duration-300 card-hover-accent accent-radius-3xl"
-                >
+              {missionItems.map((item, idx) => {
+                const cardVariant = idx === 0 ? slideInLeft : idx === 1 ? springUp : slideInRight;
+                return (
+                  <motion.div
+                    key={idx}
+                    variants={cardVariant}
+                    className="group bg-white border border-zinc-200/60 rounded-3xl p-8 sm:p-10 text-left hover:border-brick-orange/40 hover:shadow-luxury-deep transition-all duration-300 card-hover-accent accent-radius-3xl"
+                  >
                   <div className="flex items-center gap-3 mb-5">
                     <span className="flex items-center justify-center w-11 h-11 rounded-2xl bg-orange-50 border border-orange-100/50">
                       {item.icon}
@@ -157,7 +189,8 @@ export default function AboutPage() {
                     {item.desc}
                   </p>
                 </motion.div>
-              ))}
+              );
+            })}
             </div>
           </motion.div>
         </div>
@@ -165,7 +198,7 @@ export default function AboutPage() {
 
       {/* ─── The Solution ─── */}
       <section className="relative bg-[#fbfbfa] text-[#1c1a17] py-16 sm:py-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.25} />
+        <InteractiveGrid opacity={0.4} />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div
             initial="hidden"
@@ -209,7 +242,7 @@ export default function AboutPage() {
 
       {/* ─── Meet The Builders ─── */}
       <section className="relative bg-white text-[#1c1a17] py-16 sm:py-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.3} />
+        <InteractiveGrid opacity={0.45} />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div
             initial="hidden"
@@ -226,23 +259,36 @@ export default function AboutPage() {
               </h2>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
-              {builders.map((builder, idx) => (
-                <div key={idx} className="group bg-white border border-zinc-200/60 rounded-3xl p-8 text-left hover:border-brick-orange/40 hover:shadow-luxury-deep transition-all duration-300 card-hover-accent accent-radius-3xl">
-                  <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-orange-50 border border-orange-100/50 mb-6">
-                    <UserCircle className="w-8 h-8 text-brick-orange" />
-                  </div>
-                  <h3 className="text-lg font-serif font-normal text-zinc-950 mb-1">
-                    {builder.name}
-                  </h3>
-                  <div className="text-[10px] font-mono tracking-widest text-brick-orange uppercase font-bold mb-3">
-                    {builder.role}
-                  </div>
-                  <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-sans font-light">
-                    {builder.desc}
-                  </p>
-                </div>
-              ))}
+            <motion.div 
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={stagger} 
+              className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl"
+            >
+              {builders.map((builder, idx) => {
+                const cardVariant = idx === 0 ? slideInLeft : slideInRight;
+                return (
+                  <motion.div 
+                    key={idx} 
+                    variants={cardVariant}
+                    className="group bg-white border border-zinc-200/60 rounded-3xl p-8 text-left hover:border-brick-orange/40 hover:shadow-luxury-deep transition-all duration-300 card-hover-accent accent-radius-3xl"
+                  >
+                    <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-orange-50 border border-orange-100/50 mb-6">
+                      <UserCircle className="w-8 h-8 text-brick-orange" />
+                    </div>
+                    <h3 className="text-lg font-serif font-normal text-zinc-950 mb-1">
+                      {builder.name}
+                    </h3>
+                    <div className="text-[10px] font-mono tracking-widest text-brick-orange uppercase font-bold mb-3">
+                      {builder.role}
+                    </div>
+                    <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-sans font-light">
+                      {builder.desc}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </motion.div>
         </div>
@@ -250,7 +296,7 @@ export default function AboutPage() {
 
       {/* ─── Values ─── */}
       <section className="relative bg-[#fbfbfa] text-[#1c1a17] py-16 sm:py-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.3} />
+        <InteractiveGrid opacity={0.45} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div
             initial="hidden"
@@ -292,7 +338,7 @@ export default function AboutPage() {
 
       {/* ─── Company Information ─── */}
       <section className="relative bg-white text-[#1c1a17] py-14 sm:py-20 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.25} />
+        <InteractiveGrid opacity={0.4} />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div
             initial="hidden"

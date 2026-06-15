@@ -26,6 +26,36 @@ const fadeUp: Variants = {
   },
 };
 
+const slideInLeft: Variants = {
+  hidden: { opacity: 0, x: -50, scale: 0.95 },
+  show: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.8 },
+  },
+};
+
+const slideInRight: Variants = {
+  hidden: { opacity: 0, x: 50, scale: 0.95 },
+  show: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.8 },
+  },
+};
+
+const springUp: Variants = {
+  hidden: { opacity: 0, y: 50, scale: 0.92 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 70, damping: 12, duration: 0.9 },
+  },
+};
+
 const stagger: Variants = {
   hidden: { opacity: 0 },
   show: {
@@ -143,7 +173,7 @@ export default function ContactPage() {
           >
             {/* WhatsApp Card */}
             <motion.a
-              variants={fadeUp}
+              variants={slideInLeft}
               href="https://wa.me/919507321260"
               target="_blank"
               rel="noopener noreferrer"
@@ -167,7 +197,7 @@ export default function ContactPage() {
 
             {/* Email Card */}
             <motion.a
-              variants={fadeUp}
+              variants={slideInRight}
               href="mailto:business@brickbytes.in"
               className="group relative bg-white border border-zinc-200/60 rounded-3xl p-8 sm:p-10 transition-all duration-300 shadow-sm hover:border-brick-orange/40 hover:shadow-luxury-deep card-hover-accent accent-radius-3xl text-left"
             >
@@ -230,7 +260,7 @@ export default function ContactPage() {
               </motion.div>
             ) : (
               <motion.form
-                variants={fadeUp}
+                variants={springUp}
                 onSubmit={handleSubmit}
                 className="bg-white border border-zinc-200/60 rounded-3xl p-8 sm:p-10 shadow-sm"
               >
@@ -409,7 +439,10 @@ export default function ContactPage() {
               className="grid grid-cols-1 sm:grid-cols-3 gap-6"
             >
               {/* Address */}
-              <div className="flex items-start gap-3 bg-[#fbfbfa] border border-zinc-200/50 rounded-2xl p-6">
+              <motion.div 
+                variants={slideInLeft}
+                className="flex items-start gap-3 bg-[#fbfbfa] border border-zinc-200/50 rounded-2xl p-6"
+              >
                 <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-orange-50 border border-orange-100/30 shrink-0">
                   <MapPin className="w-4 h-4 text-brick-orange" />
                 </div>
@@ -425,10 +458,13 @@ export default function ContactPage() {
                     Jaipur, Rajasthan 302020, India
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* CIN */}
-              <div className="flex items-start gap-3 bg-[#fbfbfa] border border-zinc-200/50 rounded-2xl p-6">
+              <motion.div 
+                variants={springUp}
+                className="flex items-start gap-3 bg-[#fbfbfa] border border-zinc-200/50 rounded-2xl p-6"
+              >
                 <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-orange-50 border border-orange-100/30 shrink-0">
                   <Building2 className="w-4 h-4 text-brick-orange" />
                 </div>
@@ -440,10 +476,13 @@ export default function ContactPage() {
                     U62011RJ2026PTC113544
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* GSTIN */}
-              <div className="flex items-start gap-3 bg-[#fbfbfa] border border-zinc-200/50 rounded-2xl p-6">
+              <motion.div 
+                variants={slideInRight}
+                className="flex items-start gap-3 bg-[#fbfbfa] border border-zinc-200/50 rounded-2xl p-6"
+              >
                 <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-orange-50 border border-orange-100/30 shrink-0">
                   <FileText className="w-4 h-4 text-brick-orange" />
                 </div>
@@ -455,7 +494,7 @@ export default function ContactPage() {
                     08AAOCB6672J1Z2
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>

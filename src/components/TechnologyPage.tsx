@@ -26,14 +26,353 @@ const fadeUp: Variants = {
   },
 };
 
+const slideInLeft: Variants = {
+  hidden: { opacity: 0, x: -50, scale: 0.95 },
+  show: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.8 },
+  },
+};
+
+const slideInRight: Variants = {
+  hidden: { opacity: 0, x: 50, scale: 0.95 },
+  show: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.8 },
+  },
+};
+
+const springUp: Variants = {
+  hidden: { opacity: 0, y: 50, scale: 0.92 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 70, damping: 12, duration: 0.9 },
+  },
+};
+
 const stagger: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
 /* ──────────────────────────────────────────────
-   SECTION DATA — all sourced from existing components
+   ANIMATED MICRO-SVG COMPONENTS
    ────────────────────────────────────────────── */
+
+function BuyerExperienceSVG() {
+  return (
+    <svg className="w-full h-48" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <motion.path 
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { duration: 1 } }
+        }}
+        d="M 0 40 L 320 40 M 0 80 L 320 80 M 0 120 L 320 120 M 0 160 L 320 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200 M 200 0 L 200 200 M 240 0 L 240 200 M 280 0 L 280 200" 
+        stroke="#f4f4f5" 
+        strokeWidth="0.5" 
+      />
+      {/* Lot 1 */}
+      <motion.g
+        variants={{
+          hidden: { scale: 0.9, opacity: 0 },
+          show: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 100, delay: 0.2 } }
+        }}
+      >
+        <rect x="25" y="25" width="80" height="70" rx="4" fill="#faf9f5" stroke="#ff5e13" strokeWidth="1" />
+        <rect x="35" y="65" width="40" height="12" rx="3" fill="#ff5e13" />
+        <text x="55" y="73" fontSize="6" fontWeight="bold" fill="#ffffff" fontFamily="sans-serif" textAnchor="middle">LOT 01</text>
+        <text x="65" y="45" fontSize="6" fontFamily="monospace" fill="#a1a1aa" textAnchor="middle">50&apos; x 100&apos;</text>
+      </motion.g>
+      {/* Lot 2 */}
+      <motion.g
+        variants={{
+          hidden: { scale: 0.9, opacity: 0 },
+          show: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 100, delay: 0.4 } }
+        }}
+      >
+        <rect x="115" y="25" width="80" height="70" rx="4" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.8" />
+        <text x="155" y="60" fontSize="7" fontWeight="bold" fill="#71717a" fontFamily="sans-serif" textAnchor="middle">LOT 02</text>
+        <motion.text 
+          variants={{
+            hidden: { opacity: 0, scale: 0.8 },
+            show: { opacity: 1, scale: 1, transition: { delay: 0.8 } }
+          }}
+          x="155" y="72" fontSize="5" fontWeight="bold" fill="#10b981" fontFamily="sans-serif" textAnchor="middle">SOLD</motion.text>
+      </motion.g>
+      {/* Lot 3 */}
+      <motion.g
+        variants={{
+          hidden: { scale: 0.9, opacity: 0 },
+          show: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 100, delay: 0.6 } }
+        }}
+      >
+        <rect x="205" y="25" width="80" height="70" rx="4" fill="#faf9f5" stroke="#d97706" strokeWidth="1" />
+        <rect x="215" y="65" width="45" height="12" rx="3" fill="#d97706" />
+        <text x="237.5" y="73" fontSize="6" fontWeight="bold" fill="#ffffff" fontFamily="sans-serif" textAnchor="middle">RESERVED</text>
+      </motion.g>
+      
+      {/* Boardwalk & Boundary */}
+      <motion.g
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { delay: 0.8 } }
+        }}
+      >
+        <rect x="25" y="115" width="170" height="60" rx="4" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
+        <motion.path 
+          variants={{
+            hidden: { pathLength: 0 },
+            show: { pathLength: 1, transition: { duration: 1.2, ease: "easeInOut", delay: 1 } }
+          }}
+          d="M 35 145 Q 110 125 185 145" 
+          fill="none" 
+          stroke="#ff5e13" 
+          strokeWidth="1" 
+          strokeDasharray="3 3" 
+        />
+        <motion.circle 
+          animate={{ scale: [1, 1.3, 1], opacity: [0.8, 1, 0.8] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          cx="110" 
+          cy="138" 
+          r="4" 
+          fill="#ff5e13" 
+        />
+        <text x="110" y="130" fontSize="6" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif" textAnchor="middle">Lakeside Boardwalk</text>
+        <text x="110" y="160" fontSize="7" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif" textAnchor="middle">Community Layout Boundary</text>
+      </motion.g>
+    </svg>
+  );
+}
+
+function LiveInventorySVG() {
+  return (
+    <svg className="w-full h-48" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <motion.path 
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { duration: 1 } }
+        }}
+        d="M 0 40 L 320 40 M 0 80 L 320 80 M 0 120 L 320 120 M 0 160 L 320 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200 M 200 0 L 200 200 M 240 0 L 240 200 M 280 0 L 280 200" 
+        stroke="#f4f4f5" 
+        strokeWidth="0.5" 
+      />
+      {/* Progress Box */}
+      <motion.g
+        variants={{
+          hidden: { opacity: 0, y: 15 },
+          show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, delay: 0.2 } }
+        }}
+      >
+        <rect x="30" y="30" width="260" height="56" rx="8" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
+        <text x="45" y="52" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Subdivision Progress</text>
+        <text x="275" y="52" fontSize="8" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif" textAnchor="end">72% Allocated</text>
+        <rect x="45" y="60" width="230" height="8" rx="4" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
+        <motion.rect 
+          variants={{
+            hidden: { width: 0 },
+            show: { width: 165, transition: { duration: 1.2, ease: "easeOut", delay: 0.5 } }
+          }}
+          x="45" y="60" height="8" rx="4" fill="#ff5e13" 
+        />
+      </motion.g>
+
+      {/* Lock Control */}
+      <motion.g
+        variants={{
+          hidden: { opacity: 0, x: -20 },
+          show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100, delay: 0.4 } }
+        }}
+      >
+        <rect x="30" y="105" width="120" height="46" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
+        <text x="40" y="131" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Status Lock: Lot 12</text>
+        
+        {/* Toggle background */}
+        <motion.rect 
+          variants={{
+            hidden: { fill: "#e4e4e7" },
+            show: { fill: "#ff5e13", transition: { delay: 0.8 } }
+          }}
+          x="110" y="121" width="30" height="14" rx="7" 
+        />
+        {/* Toggle knob */}
+        <motion.circle 
+          variants={{
+            hidden: { cx: 117 },
+            show: { cx: 133, transition: { type: "spring", stiffness: 120, delay: 0.8 } }
+          }}
+          cy="128" 
+          r="5" 
+          fill="#ffffff" 
+        />
+      </motion.g>
+
+      {/* Live sync card */}
+      <motion.g
+        variants={{
+          hidden: { opacity: 0, x: 20 },
+          show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100, delay: 0.6 } }
+        }}
+      >
+        <rect x="170" y="105" width="120" height="46" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
+        <text x="180" y="125" fontSize="7" fill="#71717a" fontFamily="sans-serif">Auto-synced</text>
+        <motion.text 
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+          x="180" y="140" fontSize="9" fontWeight="bold" fill="#10b981" fontFamily="sans-serif">LIVE</motion.text>
+      </motion.g>
+    </svg>
+  );
+}
+
+function AiAssistantSVG() {
+  return (
+    <svg className="w-full h-48" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <motion.path 
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { duration: 1 } }
+        }}
+        d="M 0 40 L 320 40 M 0 80 L 320 80 M 0 120 L 320 120 M 0 160 L 320 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200 M 200 0 L 200 200 M 240 0 L 240 200 M 280 0 L 280 200" 
+        stroke="#f4f4f5" 
+        strokeWidth="0.5" 
+      />
+      {/* Bubble 1 */}
+      <motion.g
+        variants={{
+          hidden: { opacity: 0, y: 15 },
+          show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, delay: 0.2 } }
+        }}
+      >
+        <rect x="40" y="30" width="150" height="30" rx="8" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
+        <text x="55" y="48" fontSize="8" fill="#71717a" fontFamily="sans-serif">Show Lot 14 facing details.</text>
+      </motion.g>
+
+      {/* Bubble 2 */}
+      <motion.g
+        variants={{
+          hidden: { opacity: 0, y: 15 },
+          show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, delay: 0.6 } }
+        }}
+      >
+        <rect x="120" y="80" width="170" height="50" rx="8" fill="#fff3eb" stroke="#ffebdd" strokeWidth="0.5" />
+        <text x="135" y="100" fontSize="9" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif">East facing</text>
+        <text x="135" y="116" fontSize="7.5" fill="#71717a" fontFamily="sans-serif">Road width is 40 feet.</text>
+      </motion.g>
+
+      {/* Bubble 3 */}
+      <motion.g
+        variants={{
+          hidden: { opacity: 0, y: 15 },
+          show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, delay: 1.0 } }
+        }}
+      >
+        <rect x="40" y="150" width="200" height="30" rx="8" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
+        <text x="55" y="168" fontSize="8" fill="#71717a" fontFamily="sans-serif">What is the price range for Block A?</text>
+      </motion.g>
+    </svg>
+  );
+}
+
+function DeveloperControlSVG() {
+  return (
+    <svg className="w-full h-48" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <motion.path 
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { duration: 1 } }
+        }}
+        d="M 0 40 L 320 40 M 0 80 L 320 80 M 0 120 L 320 120 M 0 160 L 320 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200 M 200 0 L 200 200 M 240 0 L 240 200 M 280 0 L 280 200" 
+        stroke="#f4f4f5" 
+        strokeWidth="0.5" 
+      />
+      {/* Main card */}
+      <motion.g
+        variants={{
+          hidden: { opacity: 0, scale: 0.98 },
+          show: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
+        }}
+      >
+        <rect x="30" y="25" width="260" height="150" rx="10" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
+        
+        {/* Metric 1 */}
+        <motion.g
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            show: { opacity: 1, y: 0, transition: { delay: 0.2 } }
+          }}
+        >
+          <rect x="45" y="40" width="70" height="40" rx="6" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
+          <text x="52" y="55" fontSize="7" fill="#71717a" fontFamily="sans-serif">Total Value</text>
+          <text x="52" y="72" fontSize="12" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif">₹12.4Cr</text>
+        </motion.g>
+
+        {/* Metric 2 */}
+        <motion.g
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            show: { opacity: 1, y: 0, transition: { delay: 0.3 } }
+          }}
+        >
+          <rect x="125" y="40" width="70" height="40" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.5" />
+          <text x="132" y="55" fontSize="7" fill="#71717a" fontFamily="sans-serif">Plots Sold</text>
+          <text x="132" y="72" fontSize="12" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">56%</text>
+        </motion.g>
+
+        {/* Metric 3 */}
+        <motion.g
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            show: { opacity: 1, y: 0, transition: { delay: 0.4 } }
+          }}
+        >
+          <rect x="205" y="40" width="70" height="40" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.5" />
+          <text x="212" y="55" fontSize="7" fill="#71717a" fontFamily="sans-serif">Reserved</text>
+          <text x="212" y="72" fontSize="12" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">12%</text>
+        </motion.g>
+
+        {/* Chart Area */}
+        <motion.g
+          variants={{
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { delay: 0.5 } }
+          }}
+        >
+          <rect x="45" y="95" width="230" height="65" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.5" />
+          <text x="52" y="112" fontSize="7" fontWeight="bold" fill="#71717a" fontFamily="sans-serif">SALES VELOCITY (MONTHLY)</text>
+          
+          <motion.path 
+            variants={{
+              hidden: { pathLength: 0 },
+              show: { pathLength: 1, transition: { duration: 1.5, ease: "easeOut", delay: 0.7 } }
+            }}
+            d="M 55 150 L 100 135 L 145 140 L 190 122 L 235 110 L 265 106" 
+            fill="none" 
+            stroke="#ff5e13" 
+            strokeWidth="1.8" 
+            strokeLinecap="round" 
+          />
+          <motion.circle 
+            variants={{
+              hidden: { scale: 0 },
+              show: { scale: 1, transition: { type: "spring", delay: 2.0 } }
+            }}
+            cx="265" 
+            cy="106" 
+            r="3" 
+            fill="#ff5e13" 
+          />
+        </motion.g>
+      </motion.g>
+    </svg>
+  );
+}
 
 const capabilitySections = [
   {
@@ -47,26 +386,7 @@ const capabilitySections = [
       "Drone and ground reality virtual site captures",
     ],
     icon: <Map className="w-6 h-6 text-brick-orange" />,
-    svg: (
-      <svg className="w-full h-48" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 0 40 L 320 40 M 0 80 L 320 80 M 0 120 L 320 120 M 0 160 L 320 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200 M 200 0 L 200 200 M 240 0 L 240 200 M 280 0 L 280 200" stroke="#f4f4f5" strokeWidth="0.5" />
-        <rect x="25" y="25" width="80" height="70" rx="4" fill="#faf9f5" stroke="#ff5e13" strokeWidth="1" />
-        <rect x="35" y="65" width="40" height="12" rx="3" fill="#ff5e13" />
-        <text x="55" y="73" fontSize="6" fontWeight="bold" fill="#ffffff" fontFamily="sans-serif" textAnchor="middle">LOT 01</text>
-        <text x="65" y="45" fontSize="6" fontFamily="monospace" fill="#a1a1aa" textAnchor="middle">50&apos; x 100&apos;</text>
-        <rect x="115" y="25" width="80" height="70" rx="4" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.8" />
-        <text x="155" y="60" fontSize="7" fontWeight="bold" fill="#71717a" fontFamily="sans-serif" textAnchor="middle">LOT 02</text>
-        <text x="155" y="72" fontSize="5" fontWeight="bold" fill="#10b981" fontFamily="sans-serif" textAnchor="middle">SOLD</text>
-        <rect x="205" y="25" width="80" height="70" rx="4" fill="#faf9f5" stroke="#d97706" strokeWidth="1" />
-        <rect x="215" y="65" width="45" height="12" rx="3" fill="#d97706" />
-        <text x="237.5" y="73" fontSize="6" fontWeight="bold" fill="#ffffff" fontFamily="sans-serif" textAnchor="middle">RESERVED</text>
-        <rect x="25" y="115" width="170" height="60" rx="4" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
-        <path d="M 35 145 Q 110 125 185 145" fill="none" stroke="#e4e4e7" strokeWidth="1" strokeDasharray="3 3" />
-        <circle cx="110" cy="138" r="4" fill="#ff5e13" />
-        <text x="110" y="130" fontSize="6" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif" textAnchor="middle">Lakeside Boardwalk</text>
-        <text x="110" y="160" fontSize="7" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif" textAnchor="middle">Community Layout Boundary</text>
-      </svg>
-    ),
+    svg: <BuyerExperienceSVG />,
   },
   {
     tag: "02 / INVENTORY",
@@ -79,23 +399,7 @@ const capabilitySections = [
       "Reservation document generation",
     ],
     icon: <Database className="w-6 h-6 text-brick-orange" />,
-    svg: (
-      <svg className="w-full h-48" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 0 40 L 320 40 M 0 80 L 320 80 M 0 120 L 320 120 M 0 160 L 320 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200 M 200 0 L 200 200 M 240 0 L 240 200 M 280 0 L 280 200" stroke="#f4f4f5" strokeWidth="0.5" />
-        <rect x="30" y="30" width="260" height="56" rx="8" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
-        <text x="45" y="52" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Subdivision Progress</text>
-        <text x="275" y="52" fontSize="8" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif" textAnchor="end">72% Allocated</text>
-        <rect x="45" y="60" width="230" height="8" rx="4" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
-        <rect x="45" y="60" width="165" height="8" rx="4" fill="#ff5e13" />
-        <rect x="30" y="105" width="120" height="46" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
-        <text x="40" y="131" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Status Lock: Lot 12</text>
-        <rect x="110" y="121" width="30" height="14" rx="7" fill="#ff5e13" />
-        <circle cx="131" cy="128" r="5" fill="#ffffff" />
-        <rect x="170" y="105" width="120" height="46" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
-        <text x="180" y="125" fontSize="7" fill="#71717a" fontFamily="sans-serif">Auto-synced</text>
-        <text x="180" y="140" fontSize="9" fontWeight="bold" fill="#10b981" fontFamily="sans-serif">LIVE</text>
-      </svg>
-    ),
+    svg: <LiveInventorySVG />,
   },
   {
     tag: "03 / AI ASSISTANT",
@@ -108,18 +412,7 @@ const capabilitySections = [
       "Reduced manual sales follow-ups",
     ],
     icon: <Sparkles className="w-6 h-6 text-brick-orange" />,
-    svg: (
-      <svg className="w-full h-48" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 0 40 L 320 40 M 0 80 L 320 80 M 0 120 L 320 120 M 0 160 L 320 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200 M 200 0 L 200 200 M 240 0 L 240 200 M 280 0 L 280 200" stroke="#f4f4f5" strokeWidth="0.5" />
-        <rect x="40" y="30" width="150" height="30" rx="8" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
-        <text x="55" y="48" fontSize="8" fill="#71717a" fontFamily="sans-serif">Show Lot 14 facing details.</text>
-        <rect x="130" y="80" width="160" height="50" rx="8" fill="#fff3eb" stroke="#ffebdd" strokeWidth="0.5" />
-        <text x="145" y="100" fontSize="9" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif">East facing</text>
-        <text x="145" y="116" fontSize="7.5" fill="#71717a" fontFamily="sans-serif">Road width is 40 feet.</text>
-        <rect x="40" y="150" width="200" height="30" rx="8" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
-        <text x="55" y="168" fontSize="8" fill="#71717a" fontFamily="sans-serif">What is the price range for Block A?</text>
-      </svg>
-    ),
+    svg: <AiAssistantSVG />,
   },
   {
     tag: "04 / DEVELOPER CONTROL",
@@ -132,25 +425,7 @@ const capabilitySections = [
       "Business volume visibility",
     ],
     icon: <Monitor className="w-6 h-6 text-brick-orange" />,
-    svg: (
-      <svg className="w-full h-48" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 0 40 L 320 40 M 0 80 L 320 80 M 0 120 L 320 120 M 0 160 L 320 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200 M 200 0 L 200 200 M 240 0 L 240 200 M 280 0 L 280 200" stroke="#f4f4f5" strokeWidth="0.5" />
-        <rect x="30" y="25" width="260" height="150" rx="10" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
-        <rect x="45" y="40" width="70" height="40" rx="6" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
-        <text x="52" y="55" fontSize="7" fill="#71717a" fontFamily="sans-serif">Total Value</text>
-        <text x="52" y="72" fontSize="12" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif">₹12.4Cr</text>
-        <rect x="125" y="40" width="70" height="40" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.5" />
-        <text x="132" y="55" fontSize="7" fill="#71717a" fontFamily="sans-serif">Plots Sold</text>
-        <text x="132" y="72" fontSize="12" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">56%</text>
-        <rect x="205" y="40" width="70" height="40" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.5" />
-        <text x="212" y="55" fontSize="7" fill="#71717a" fontFamily="sans-serif">Reserved</text>
-        <text x="212" y="72" fontSize="12" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">12%</text>
-        <rect x="45" y="95" width="230" height="65" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.5" />
-        <text x="52" y="112" fontSize="7" fontWeight="bold" fill="#71717a" fontFamily="sans-serif">SALES VELOCITY (MONTHLY)</text>
-        <path d="M 55 150 L 100 135 L 145 140 L 190 122 L 235 110 L 265 106" fill="none" stroke="#ff5e13" strokeWidth="1.8" strokeLinecap="round" />
-        <circle cx="265" cy="106" r="3" fill="#ff5e13" />
-      </svg>
-    ),
+    svg: <DeveloperControlSVG />,
   },
 ];
 
@@ -182,7 +457,7 @@ export default function TechnologyPage() {
     <>
       {/* ─── Hero ─── */}
       <section className="relative bg-[#fbfbfa] text-[#1c1a17] pt-36 sm:pt-44 pb-16 sm:pb-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.4} />
+        <InteractiveGrid opacity={0.6} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div initial="hidden" animate="show" variants={stagger} className="max-w-3xl text-left">
             <motion.div variants={fadeUp} className="text-[10px] uppercase tracking-[0.25em] font-mono font-bold text-brick-orange mb-3">
@@ -207,7 +482,7 @@ export default function TechnologyPage() {
             idx % 2 === 0 ? "bg-white" : "bg-[#fbfbfa]"
           }`}
         >
-          <InteractiveGrid opacity={0.3} />
+          <InteractiveGrid opacity={0.45} />
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
             <motion.div
               initial="hidden"
@@ -219,7 +494,10 @@ export default function TechnologyPage() {
               }`}
             >
               {/* Content Side */}
-              <motion.div variants={fadeUp} className={`text-left ${idx % 2 !== 0 ? "lg:order-2" : ""}`}>
+              <motion.div 
+                variants={idx % 2 === 0 ? slideInLeft : slideInRight} 
+                className={`text-left ${idx % 2 !== 0 ? "lg:order-2" : ""}`}
+              >
                 <div className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase mb-4">
                   {section.tag}
                 </div>
@@ -248,7 +526,7 @@ export default function TechnologyPage() {
 
               {/* Visual Side */}
               <motion.div
-                variants={fadeUp}
+                variants={idx % 2 === 0 ? slideInRight : slideInLeft}
                 className={`w-full bg-white border border-zinc-200/50 rounded-3xl p-4 shadow-sm ${idx % 2 !== 0 ? "lg:order-1" : ""}`}
               >
                 {section.svg}
@@ -260,7 +538,7 @@ export default function TechnologyPage() {
 
       {/* ─── Technology Benefits ─── */}
       <section className="relative bg-[#fbfbfa] text-[#1c1a17] py-16 sm:py-24 overflow-hidden border-b border-zinc-200/50">
-        <InteractiveGrid opacity={0.3} />
+        <InteractiveGrid opacity={0.45} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div
             initial="hidden"
@@ -278,23 +556,26 @@ export default function TechnologyPage() {
             </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {benefitCards.map((card, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={fadeUp}
-                  className="group bg-white border border-zinc-200/60 rounded-3xl p-6 sm:p-8 hover:border-brick-orange/40 hover:shadow-luxury-deep transition-all duration-300 text-left card-hover-accent accent-radius-3xl"
-                >
-                  <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-orange-50 border border-orange-100/50 mb-5">
-                    {card.icon}
-                  </span>
-                  <h3 className="text-base sm:text-lg font-serif font-normal text-zinc-950 mb-2">
-                    {card.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-sans font-light">
-                    {card.desc}
-                  </p>
-                </motion.div>
-              ))}
+              {benefitCards.map((card, idx) => {
+                const cardVariant = idx === 0 ? slideInLeft : idx === 3 ? slideInRight : springUp;
+                return (
+                  <motion.div
+                    key={idx}
+                    variants={cardVariant}
+                    className="group bg-white border border-zinc-200/60 rounded-3xl p-6 sm:p-8 hover:border-brick-orange/40 hover:shadow-luxury-deep transition-all duration-300 text-left card-hover-accent accent-radius-3xl"
+                  >
+                    <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-orange-50 border border-orange-100/50 mb-5">
+                      {card.icon}
+                    </span>
+                    <h3 className="text-base sm:text-lg font-serif font-normal text-zinc-950 mb-2">
+                      {card.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-sans font-light">
+                      {card.desc}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </div>

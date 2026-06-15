@@ -3,6 +3,7 @@ import Problem from "@/components/Problem";
 import Transformation from "@/components/Transformation";
 import ProductEcosystem from "@/components/ProductEcosystem";
 import FeaturesBento from "@/components/FeaturesBento";
+import ProductShowcase from "@/components/ProductShowcase";
 import HowItWorks from "@/components/HowItWorks";
 import UseCases from "@/components/UseCases";
 import WhyBrickBytes from "@/components/WhyBrickBytes";
@@ -19,6 +20,7 @@ export default function Home() {
         <Transformation />
         <ProductEcosystem />
         <FeaturesBento />
+        <ProductShowcase />
         <HowItWorks />
         <UseCases />
         <WhyBrickBytes />

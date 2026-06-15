@@ -114,7 +114,7 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
         const dx = mouseX - pt.x;
         const dy = mouseY - pt.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const influenceRadius = 180; // Field size
+        const influenceRadius = 270; // Field size (increased by 50%)
         const maxDisplacement = 28;  // Strength of pull
 
         if (distance < influenceRadius && distance > 0.1) {
@@ -168,11 +168,11 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       // 1. Draw a soft, warm background glow behind focus zone on desktop
       if (s.mouse.active && strength > 0.001) {
         context.beginPath();
-        const glowGrad = context.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 180);
-        glowGrad.addColorStop(0, "rgba(255, 94, 19, 0.07)"); // very soft orange glow
+        const glowGrad = context.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 270);
+        glowGrad.addColorStop(0, "rgba(255, 94, 19, 0.11)"); // soft orange glow (increased by 57%)
         glowGrad.addColorStop(1, "rgba(255, 94, 19, 0)");
         context.fillStyle = glowGrad;
-        context.arc(mouseX, mouseY, 180, 0, Math.PI * 2);
+        context.arc(mouseX, mouseY, 270, 0, Math.PI * 2);
         context.fill();
       }
 
@@ -186,20 +186,20 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       }
 
       // 3. Create dynamic styling for grid lines
-      let strokeStyle: string | CanvasGradient = "rgba(28, 26, 23, 0.11)"; // Slightly increased base visibility (0.07 -> 0.11)
+      let strokeStyle: string | CanvasGradient = "rgba(28, 26, 23, 0.18)"; // Base visibility (increased by 63%)
       
       if (s.mouse.active && strength > 0.001) {
-        const lineGrad = context.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 180);
-        lineGrad.addColorStop(0, "rgba(255, 94, 19, 0.40)"); // soft glowing orange at center focus
-        lineGrad.addColorStop(0.35, "rgba(28, 26, 23, 0.33)"); // higher-contrast dark warm color
-        lineGrad.addColorStop(1, "rgba(28, 26, 23, 0.11)"); // base grid style
+        const lineGrad = context.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 270);
+        lineGrad.addColorStop(0, "rgba(255, 94, 19, 0.60)"); // glowing orange at center focus (increased by 50%)
+        lineGrad.addColorStop(0.35, "rgba(28, 26, 23, 0.50)"); // warm dark focus color (increased by 51%)
+        lineGrad.addColorStop(1, "rgba(28, 26, 23, 0.18)"); // base grid style
         strokeStyle = lineGrad;
       } else if (pulse.active && pulse.strength > 0.001) {
         // Highlight lines passing through the ripple wave
         const lineGrad = context.createRadialGradient(pulse.x, pulse.y, Math.max(0, pulse.radius - 30), pulse.x, pulse.y, pulse.radius + 30);
-        lineGrad.addColorStop(0, "rgba(28, 26, 23, 0.11)");
+        lineGrad.addColorStop(0, "rgba(28, 26, 23, 0.18)");
         lineGrad.addColorStop(0.5, `rgba(255, 94, 19, ${0.25 * pulse.strength})`);
-        lineGrad.addColorStop(1, "rgba(28, 26, 23, 0.11)");
+        lineGrad.addColorStop(1, "rgba(28, 26, 23, 0.18)");
         strokeStyle = lineGrad;
       }
 
@@ -243,19 +243,19 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       }
 
       // 4. Create dynamic styling for architectural dots
-      let fillStyle: string | CanvasGradient = "rgba(28, 26, 23, 0.22)"; // Slightly increased base visibility (0.16 -> 0.22)
+      let fillStyle: string | CanvasGradient = "rgba(28, 26, 23, 0.35)"; // Base dots visibility (increased by 59%)
       
       if (s.mouse.active && strength > 0.001) {
-        const dotGrad = context.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 180);
-        dotGrad.addColorStop(0, "rgba(255, 94, 19, 0.60)"); // bright orange dot focus
-        dotGrad.addColorStop(0.35, "rgba(28, 26, 23, 0.40)"); // stronger dots near focus
-        dotGrad.addColorStop(1, "rgba(28, 26, 23, 0.22)");
+        const dotGrad = context.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 270);
+        dotGrad.addColorStop(0, "rgba(255, 94, 19, 0.90)"); // orange dot focus (increased by 50%)
+        dotGrad.addColorStop(0.35, "rgba(28, 26, 23, 0.60)"); // stronger dots near focus (increased by 50%)
+        dotGrad.addColorStop(1, "rgba(28, 26, 23, 0.35)");
         fillStyle = dotGrad;
       } else if (pulse.active && pulse.strength > 0.001) {
         const dotGrad = context.createRadialGradient(pulse.x, pulse.y, Math.max(0, pulse.radius - 30), pulse.x, pulse.y, pulse.radius + 30);
-        dotGrad.addColorStop(0, "rgba(28, 26, 23, 0.22)");
+        dotGrad.addColorStop(0, "rgba(28, 26, 23, 0.35)");
         dotGrad.addColorStop(0.5, `rgba(255, 94, 19, ${0.45 * pulse.strength})`);
-        dotGrad.addColorStop(1, "rgba(28, 26, 23, 0.22)");
+        dotGrad.addColorStop(1, "rgba(28, 26, 23, 0.35)");
         fillStyle = dotGrad;
       }
 
