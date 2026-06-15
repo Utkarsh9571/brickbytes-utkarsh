@@ -41,8 +41,15 @@ export default function ProductShowcase() {
   const [selectedId, setSelectedId] = useState<string | null>("PLOT 01");
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [ripple, setRipple] = useState<{ x: number; y: number; color: string } | null>(null);
 
   const selectedPlot = plots.find((p) => p.id === selectedId) || null;
+
+  // Derived state for inventory dashboard counts
+  const totalCount = plots.length;
+  const availableCount = plots.filter((p) => p.status === "Available").length;
+  const holdCount = plots.filter((p) => p.status === "Hold").length;
+  const soldCount = plots.filter((p) => p.status === "Sold").length;
 
   const handleSelectPlot = (id: string, isFilteredOut: boolean) => {
     if (isFilteredOut) return;
@@ -53,7 +60,20 @@ export default function ProductShowcase() {
     setPlots((prev) =>
       prev.map((p) => (p.id === id ? { ...p, status: newStatus } : p))
     );
-    triggerToast(`${id} updated to ${newStatus}. Database synchronized.`);
+
+    const plot = plots.find((p) => p.id === id);
+    if (plot) {
+      const rx = plot.x + plot.w / 2;
+      const ry = plot.y + plot.h / 2;
+      let color = "#10b981"; // Available
+      if (newStatus === "Hold") color = "#f59e0b";
+      if (newStatus === "Sold") color = "#ef4444";
+      
+      setRipple({ x: rx, y: ry, color });
+      setTimeout(() => setRipple(null), 1200);
+    }
+
+    triggerToast(`${id} status updated to ${newStatus}. Broadcasting live update...`);
   };
 
   const triggerToast = (message: string) => {
@@ -81,21 +101,72 @@ export default function ProductShowcase() {
           </p>
         </div>
 
-        {/* Filters Panel */}
-        <div className="flex flex-wrap gap-2.5 mb-8 border-b border-zinc-100 pb-6">
-          {filters.map((f) => (
-            <button
-              key={f.value}
-              onClick={() => setActiveFilter(f.value)}
-              className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 ${
-                activeFilter === f.value
-                  ? "bg-[#1c1a17] text-white shadow-sm"
-                  : "bg-[#fbfbfa] text-zinc-500 border border-zinc-200/50 hover:bg-zinc-100/50"
-              }`}
-            >
-              {f.label}
-            </button>
-          ))}
+        {/* Filters and Inventory Status HUD */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-zinc-100 pb-6">
+          {/* Filters Panel */}
+          <div className="flex flex-wrap gap-2.5">
+            {filters.map((f) => (
+              <button
+                key={f.value}
+                onClick={() => setActiveFilter(f.value)}
+                className={`px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 ${
+                  activeFilter === f.value
+                    ? "bg-[#1c1a17] text-white shadow-sm"
+                    : "bg-[#fbfbfa] text-zinc-500 border border-zinc-200/50 hover:bg-zinc-100/50"
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Real-time Inventory Counts HUD */}
+          <div className="grid grid-cols-4 gap-2 sm:gap-4 bg-zinc-50 border border-zinc-200/40 rounded-2xl p-3 text-center min-w-70 sm:min-w-85">
+            <div>
+              <span className="text-[8px] font-mono text-zinc-400 uppercase block">Total</span>
+              <motion.span 
+                key={totalCount}
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                className="text-xs font-mono font-bold text-zinc-800"
+              >
+                {totalCount}
+              </motion.span>
+            </div>
+            <div>
+              <span className="text-[8px] font-mono text-emerald-500 uppercase block">Available</span>
+              <motion.span 
+                key={availableCount}
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                className="text-xs font-mono font-bold text-emerald-600"
+              >
+                {availableCount}
+              </motion.span>
+            </div>
+            <div>
+              <span className="text-[8px] font-mono text-amber-500 uppercase block">Hold</span>
+              <motion.span 
+                key={holdCount}
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                className="text-xs font-mono font-bold text-amber-600"
+              >
+                {holdCount}
+              </motion.span>
+            </div>
+            <div>
+              <span className="text-[8px] font-mono text-zinc-400 block uppercase">Sold</span>
+              <motion.span 
+                key={soldCount}
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                className="text-xs font-mono font-bold text-zinc-500"
+              >
+                {soldCount}
+              </motion.span>
+            </div>
+          </div>
         </div>
 
         {/* Showcase Grid Layout */}
@@ -188,6 +259,23 @@ export default function ProductShowcase() {
                         className="transition-colors duration-300"
                       />
                       
+                      {/* Active Selection Marching Ants Outline */}
+                      {isSelected && (
+                        <motion.rect
+                          x={plot.x - 2}
+                          y={plot.y - 2}
+                          width={plot.w + 4}
+                          height={plot.h + 4}
+                          rx="8"
+                          fill="none"
+                          stroke="#ff5e13"
+                          strokeWidth="1.5"
+                          strokeDasharray="4 3"
+                          animate={{ strokeDashoffset: [0, -20] }}
+                          transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
+                        />
+                      )}
+                      
                       {/* Plot label */}
                       <text
                         x={plot.x + plot.w / 2}
@@ -221,6 +309,36 @@ export default function ProductShowcase() {
                     </motion.g>
                   );
                 })}
+
+                {/* Database Synchronization Waves */}
+                <AnimatePresence>
+                  {ripple && (
+                    <g key={`sync-ripple-${ripple.x}-${ripple.y}`}>
+                      <motion.circle
+                        initial={{ r: 12, opacity: 0.6 }}
+                        animate={{ r: 85, opacity: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 1.1, ease: "easeOut" }}
+                        cx={ripple.x}
+                        cy={ripple.y}
+                        fill="none"
+                        stroke={ripple.color}
+                        strokeWidth="2.5"
+                      />
+                      <motion.circle
+                        initial={{ r: 6, opacity: 0.8 }}
+                        animate={{ r: 45, opacity: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
+                        cx={ripple.x}
+                        cy={ripple.y}
+                        fill="none"
+                        stroke={ripple.color}
+                        strokeWidth="1.5"
+                      />
+                    </g>
+                  )}
+                </AnimatePresence>
               </svg>
             </div>
 
@@ -273,91 +391,99 @@ export default function ProductShowcase() {
                   </span>
                 </div>
 
-                {selectedPlot ? (
-                  <div>
-                    {/* Plot Meta Data */}
-                    <div className="flex items-center justify-between mb-6">
-                      <div>
-                        <h4 className="text-2xl font-serif font-light text-zinc-950">
-                          {selectedPlot.id}
-                        </h4>
-                        <p className="text-[10px] font-mono uppercase tracking-wider text-brick-orange mt-1">
-                          {selectedPlot.type}
-                        </p>
+                <AnimatePresence mode="wait">
+                  {selectedPlot ? (
+                    <motion.div
+                      key={selectedPlot.id}
+                      initial={{ opacity: 0, x: 15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -15 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {/* Plot Meta Data */}
+                      <div className="flex items-center justify-between mb-6">
+                        <div>
+                          <h4 className="text-2xl font-serif font-light text-zinc-950">
+                            {selectedPlot.id}
+                          </h4>
+                          <p className="text-[10px] font-mono uppercase tracking-wider text-brick-orange mt-1">
+                            {selectedPlot.type}
+                          </p>
+                        </div>
+
+                        {/* Dynamic Badge */}
+                        <span className={`px-3 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider ${
+                          selectedPlot.status === "Available"
+                            ? "bg-emerald-50 border border-emerald-100 text-emerald-600"
+                            : selectedPlot.status === "Hold"
+                            ? "bg-amber-50 border border-amber-100 text-amber-600"
+                            : "bg-zinc-50 border border-zinc-200/60 text-zinc-500"
+                        }`}>
+                          {selectedPlot.status}
+                        </span>
                       </div>
 
-                      {/* Dynamic Badge */}
-                      <span className={`px-3 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider ${
-                        selectedPlot.status === "Available"
-                          ? "bg-emerald-50 border border-emerald-100 text-emerald-600"
-                          : selectedPlot.status === "Hold"
-                          ? "bg-amber-50 border border-amber-100 text-amber-600"
-                          : "bg-zinc-50 border border-zinc-200/60 text-zinc-500"
-                      }`}>
-                        {selectedPlot.status}
-                      </span>
-                    </div>
+                      {/* Parameters Spec Grid */}
+                      <div className="grid grid-cols-2 gap-4 mb-8 bg-[#fbfbfa] border border-zinc-200/40 rounded-2xl p-5">
+                        <div>
+                          <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase block mb-1">Facing</span>
+                          <span className="text-xs font-sans font-semibold text-zinc-900">{selectedPlot.facing} Facing</span>
+                        </div>
+                        <div>
+                          <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase block mb-1">Area</span>
+                          <span className="text-xs font-sans font-semibold text-zinc-900">{selectedPlot.size}</span>
+                        </div>
+                        <div className="border-t border-zinc-100 pt-3">
+                          <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase block mb-1">Accessway</span>
+                          <span className="text-xs font-sans font-semibold text-zinc-900">{selectedPlot.road}</span>
+                        </div>
+                        <div className="border-t border-zinc-100 pt-3">
+                          <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase block mb-1">Est. Price</span>
+                          <span className="text-xs font-sans font-semibold text-zinc-900">{selectedPlot.price}</span>
+                        </div>
+                      </div>
 
-                    {/* Parameters Spec Grid */}
-                    <div className="grid grid-cols-2 gap-4 mb-8 bg-[#fbfbfa] border border-zinc-200/40 rounded-2xl p-5">
-                      <div>
-                        <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase block mb-1">Facing</span>
-                        <span className="text-xs font-sans font-semibold text-zinc-900">{selectedPlot.facing} Facing</span>
+                      {/* Operation simulator label */}
+                      <div className="mb-4">
+                        <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase font-bold flex items-center gap-1">
+                          <Layers className="w-3 h-3" />
+                          Simulate Broker Operations
+                        </span>
                       </div>
-                      <div>
-                        <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase block mb-1">Area</span>
-                        <span className="text-xs font-sans font-semibold text-zinc-900">{selectedPlot.size}</span>
-                      </div>
-                      <div className="border-t border-zinc-100 pt-3">
-                        <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase block mb-1">Accessway</span>
-                        <span className="text-xs font-sans font-semibold text-zinc-900">{selectedPlot.road}</span>
-                      </div>
-                      <div className="border-t border-zinc-100 pt-3">
-                        <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase block mb-1">Est. Price</span>
-                        <span className="text-xs font-sans font-semibold text-zinc-900">{selectedPlot.price}</span>
-                      </div>
-                    </div>
 
-                    {/* Operation simulator label */}
-                    <div className="mb-4">
-                      <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase font-bold flex items-center gap-1">
-                        <Layers className="w-3 h-3" />
-                        Simulate Broker Operations
-                      </span>
+                      {/* Control Buttons */}
+                      <div className="flex flex-col gap-2">
+                        <button
+                          onClick={() => handleUpdateStatus(selectedPlot.id, "Available")}
+                          disabled={selectedPlot.status === "Available"}
+                          className="w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-700 hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-zinc-700 disabled:hover:border-zinc-200"
+                        >
+                          Set Status: Available
+                        </button>
+                        <button
+                          onClick={() => handleUpdateStatus(selectedPlot.id, "Hold")}
+                          disabled={selectedPlot.status === "Hold"}
+                          className="w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-700 hover:bg-amber-50 hover:text-amber-600 hover:border-amber-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-zinc-700 disabled:hover:border-zinc-200"
+                        >
+                          Set Status: Hold
+                        </button>
+                        <button
+                          onClick={() => handleUpdateStatus(selectedPlot.id, "Sold")}
+                          disabled={selectedPlot.status === "Sold"}
+                          className="w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-700 hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-zinc-700 disabled:hover:border-zinc-200"
+                        >
+                          Set Status: Sold
+                        </button>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center py-12 text-center">
+                      <p className="text-sm text-zinc-400 font-sans font-light">
+                        Select a plot block on the master plan to inspect details.
+                      </p>
                     </div>
-
-                    {/* Control Buttons */}
-                    <div className="flex flex-col gap-2">
-                      <button
-                        onClick={() => handleUpdateStatus(selectedPlot.id, "Available")}
-                        disabled={selectedPlot.status === "Available"}
-                        className="w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-700 hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-zinc-700 disabled:hover:border-zinc-200"
-                      >
-                        Set Status: Available
-                      </button>
-                      <button
-                        onClick={() => handleUpdateStatus(selectedPlot.id, "Hold")}
-                        disabled={selectedPlot.status === "Hold"}
-                        className="w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-700 hover:bg-amber-50 hover:text-amber-600 hover:border-amber-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-zinc-700 disabled:hover:border-zinc-200"
-                      >
-                        Set Status: Hold
-                      </button>
-                      <button
-                        onClick={() => handleUpdateStatus(selectedPlot.id, "Sold")}
-                        disabled={selectedPlot.status === "Sold"}
-                        className="w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-700 hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-zinc-700 disabled:hover:border-zinc-200"
-                      >
-                        Set Status: Sold
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <p className="text-sm text-zinc-400 font-sans font-light">
-                      Select a plot block on the master plan to inspect details.
-                    </p>
-                  </div>
-                )}
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Panel Footer */}

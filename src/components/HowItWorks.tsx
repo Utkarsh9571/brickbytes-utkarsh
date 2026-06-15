@@ -17,7 +17,18 @@ const steps = [
         <rect x="55" y="20" width="50" height="56" rx="4" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
         <path d="M 93 20 L 105 32 L 105 76 L 55 76" stroke="#e4e4e7" strokeWidth="0.8" />
         <polygon points="93,20 105,32 93,32" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.8" />
-        <path d="M 80 62 L 80 44 M 74 50 L 80 44 L 86 50" fill="none" stroke="#ff5e13" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <motion.path 
+          variants={{
+            hidden: { y: 0 },
+            show: { y: [0, -4, 0], transition: { repeat: Infinity, duration: 1.8, ease: "easeInOut" } }
+          }}
+          d="M 80 62 L 80 44 M 74 50 L 80 44 L 86 50" 
+          fill="none" 
+          stroke="#ff5e13" 
+          strokeWidth="1.2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+        />
         <path d="M 68 62 L 92 62" stroke="#e4e4e7" strokeWidth="0.8" />
       </svg>
     )
@@ -36,7 +47,19 @@ const steps = [
         <line x1="50" y1="48" x2="90" y2="58" stroke="#e4e4e7" strokeWidth="0.8" />
         <line x1="90" y1="58" x2="110" y2="52" stroke="#e4e4e7" strokeWidth="0.8" />
         <circle cx="50" cy="48" r="3" fill="#1c1a17" />
-        <circle cx="75" cy="38" r="3.5" fill="#ff5e13" stroke="#ffffff" strokeWidth="1" />
+        <motion.circle 
+          variants={{
+            hidden: { scale: 1 },
+            show: { scale: [1, 1.25, 1], transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" } }
+          }}
+          style={{ transformOrigin: "75px 38px" }}
+          cx="75" 
+          cy="38" 
+          r="3.5" 
+          fill="#ff5e13" 
+          stroke="#ffffff" 
+          strokeWidth="1" 
+        />
         <circle cx="110" cy="52" r="3" fill="#1c1a17" />
         <circle cx="90" cy="58" r="2.5" fill="#a1a1aa" />
       </svg>
@@ -52,44 +75,73 @@ const steps = [
         <path d="M 0 16 L 160 16 M 0 48 L 160 48 M 0 80 L 160 80 M 32 0 L 32 96 M 96 0 L 96 96" stroke="#f4f4f5" strokeWidth="0.5" />
         <circle cx="80" cy="48" r="18" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
         <circle cx="80" cy="48" r="6" fill="#ff5e13" />
-        <circle cx="80" cy="48" r="26" fill="none" stroke="#ff5e13" strokeWidth="0.8" strokeDasharray="2 2" opacity="0.6" />
-        <circle cx="80" cy="48" r="34" fill="none" stroke="#ff5e13" strokeWidth="0.5" opacity="0.3" />
+        <motion.circle 
+          variants={{
+            hidden: { scale: 0.9, opacity: 0.4 },
+            show: { scale: [0.9, 1.15, 0.9], opacity: [0.4, 0.8, 0.4], transition: { repeat: Infinity, duration: 2.2, ease: "easeInOut" } }
+          }}
+          style={{ transformOrigin: "80px 48px" }}
+          cx="80" 
+          cy="48" 
+          r="26" 
+          fill="none" 
+          stroke="#ff5e13" 
+          strokeWidth="0.8" 
+          strokeDasharray="2 2" 
+        />
+        <motion.circle 
+          variants={{
+            hidden: { scale: 0.9, opacity: 0.2 },
+            show: { scale: [0.9, 1.1, 0.9], opacity: [0.2, 0.5, 0.2], transition: { repeat: Infinity, duration: 2.8, ease: "easeInOut" } }
+          }}
+          style={{ transformOrigin: "80px 48px" }}
+          cx="80" 
+          cy="48" 
+          r="34" 
+          fill="none" 
+          stroke="#ff5e13" 
+          strokeWidth="0.5" 
+        />
       </svg>
     )
   }
 ];
 
 const slideInLeft: Variants = {
-  hidden: { opacity: 0, x: -50, scale: 0.95 },
+  hidden: { opacity: 0, x: -40, scale: 0.96, borderColor: "rgba(228, 228, 230, 0.6)", boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)" },
   show: {
     opacity: 1,
     x: 0,
     scale: 1,
+    borderColor: "rgba(255, 94, 19, 0.25)",
+    boxShadow: "0 20px 40px -15px rgba(255, 94, 19, 0.07)",
     transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.8 },
   },
 };
 
 const slideInRight: Variants = {
-  hidden: { opacity: 0, x: 50, scale: 0.95 },
+  hidden: { opacity: 0, x: 40, scale: 0.96, borderColor: "rgba(228, 228, 230, 0.6)", boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)" },
   show: {
     opacity: 1,
     x: 0,
     scale: 1,
+    borderColor: "rgba(255, 94, 19, 0.25)",
+    boxShadow: "0 20px 40px -15px rgba(255, 94, 19, 0.07)",
     transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.8 },
   },
 };
 
 const springUp: Variants = {
-  hidden: { opacity: 0, y: 50, scale: 0.92 },
+  hidden: { opacity: 0, y: 40, scale: 0.95, borderColor: "rgba(228, 228, 230, 0.6)", boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)" },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
+    borderColor: "rgba(255, 94, 19, 0.25)",
+    boxShadow: "0 20px 40px -15px rgba(255, 94, 19, 0.07)",
     transition: { type: "spring", stiffness: 70, damping: 12, duration: 0.9 },
   },
 };
-
-
 
 export default function HowItWorks() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -154,18 +206,18 @@ export default function HowItWorks() {
                     <motion.div
                       initial="hidden"
                       whileInView="show"
-                      viewport={{ once: true, margin: "-80px" }}
+                      viewport={{ once: false, margin: "-12% 0px -15% 0px" }}
                       variants={{
                         hidden: { scale: 0.8, borderColor: "#e4e4e7", color: "#a1a1aa", boxShadow: "none" },
                         show: {
-                          scale: 1,
+                          scale: 1.05,
                           borderColor: "#ff5e13",
                           color: "#ff5e13",
-                          boxShadow: "0 0 20px rgba(255, 94, 19, 0.25)",
-                          transition: { type: "spring", stiffness: 100, delay: 0.1 }
+                          boxShadow: "0 0 25px rgba(255, 94, 19, 0.35)",
+                          transition: { type: "spring", stiffness: 120, damping: 10 }
                         }
                       }}
-                      className="flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 text-base font-mono font-bold select-none"
+                      className="flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 text-base font-mono font-bold select-none z-10"
                     >
                       {item.number}
                     </motion.div>
@@ -175,9 +227,9 @@ export default function HowItWorks() {
                   <motion.div
                     initial="hidden"
                     whileInView="show"
-                    viewport={{ once: true, margin: "-80px" }}
+                    viewport={{ once: false, margin: "-12% 0px -15% 0px" }}
                     variants={cardVariant}
-                    className="group bg-white border border-zinc-200/60 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-center hover:border-brick-orange/30 shadow-sm hover:shadow-luxury-deep transition-all duration-300"
+                    className="group bg-white border rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-center shadow-sm transition-all duration-500"
                   >
                     {/* SVG Diagram Column */}
                     <div className="w-full md:w-1/3 flex items-center justify-center bg-[#fbfbfa] rounded-2xl border border-zinc-100 p-2 shadow-inner shrink-0 overflow-hidden">

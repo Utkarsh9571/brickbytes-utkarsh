@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Play, Compass, X } from "lucide-react";
 import InteractiveGrid from "./InteractiveGrid";
+import MiniTownship from "./MiniTownship";
 
 // Plotted Land Gated Community Model
 const plots = [
@@ -418,63 +419,81 @@ export default function Hero() {
           )}
         </AnimatePresence>
 
-        {/* Presentation Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#faf9f5] border border-zinc-200/50 text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-500 mb-2 sm:mb-6 shadow-sm"
-        >
-          <Compass className="w-3.5 h-3.5 text-brick-orange animate-spin-slow" />
-          <span>Interactive Estate Visualization</span>
-        </motion.div>
+        {/* Grid Container for Split-Screen Layout */}
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center text-center lg:text-left mb-12 sm:mb-16">
+          {/* Left Column: Hero Content */}
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
+            {/* Presentation Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#faf9f5] border border-zinc-200/50 text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-500 mb-2 sm:mb-6 shadow-sm"
+            >
+              <Compass className="w-3.5 h-3.5 text-brick-orange animate-spin-slow" />
+              <span>Interactive Estate Visualization</span>
+            </motion.div>
 
-        {/* Stronger Luxury Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-light tracking-tight leading-[1.1] max-w-5xl text-zinc-950"
-        >
-          Transform flat layouts into{" "}
-          <span className="font-normal block sm:inline text-brick-orange italic">
-            digital sales experiences.
-          </span>
-        </motion.h1>
+            {/* Stronger Luxury Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-light tracking-tight leading-[1.1] max-w-5xl text-zinc-950"
+            >
+              Transform flat layouts into{" "}
+              <span className="font-normal block sm:inline text-brick-orange italic">
+                digital sales experiences.
+              </span>
+            </motion.h1>
 
-        {/* Elevated Subheadline & Breathing Room */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xs sm:text-sm md:text-base text-zinc-500 max-w-xl mt-2 sm:mt-4 mb-4 sm:mb-6 leading-relaxed font-sans font-light"
-        >
-          Replace static blueprint PDFs with immersive interactive maps. Empower buyers to explore available lots, view luxury clubhouse amenities, and experience drone views. Crafted exclusively for elite real estate developments.
-        </motion.p>
+            {/* Elevated Subheadline & Breathing Room */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xs sm:text-sm md:text-base text-zinc-500 max-w-xl mt-4 mb-6 leading-relaxed font-sans font-light"
+            >
+              Replace static blueprint PDFs with immersive interactive maps. Empower buyers to explore available lots, view luxury clubhouse amenities, and experience drone views. Crafted exclusively for elite real estate developments.
+            </motion.p>
 
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex flex-row items-center justify-center gap-3 sm:gap-5 mb-5 sm:mb-10 w-full sm:w-auto px-4"
-        >
-          <a
-            href="/contact"
-            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 sm:px-8 sm:py-4 rounded-lg bg-brick-orange hover:bg-brick-orange/95 text-white font-semibold text-xs sm:text-sm transition-all duration-300 shadow-md shadow-brick-orange/20 hover:shadow-brick-orange/30 group"
-          >
-            <span>Book Demo</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-          </a>
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex flex-row items-center justify-center lg:justify-start gap-3 sm:gap-5 mb-5 w-full sm:w-auto px-4 lg:px-0"
+            >
+              <a
+                href="/contact"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 sm:px-8 sm:py-4 rounded-lg bg-brick-orange hover:bg-brick-orange/95 text-white font-semibold text-xs sm:text-sm transition-all duration-300 shadow-md shadow-brick-orange/20 hover:shadow-brick-orange/30 group"
+              >
+                <span>Book Demo</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </a>
 
-          <a
-            href="#watch-experience"
-            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 sm:px-8 sm:py-4 rounded-lg bg-white hover:bg-zinc-50 text-zinc-800 font-semibold text-xs sm:text-sm border border-zinc-200 transition-all duration-300 group"
-          >
-            <Play className="w-3.5 h-3.5 text-zinc-500 fill-zinc-500 group-hover:text-brick-orange group-hover:fill-brick-orange transition-colors" />
-            <span>Watch Live</span>
-          </a>
-        </motion.div>
+              <a
+                href="#watch-experience"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 sm:px-8 sm:py-4 rounded-lg bg-white hover:bg-zinc-50 text-zinc-800 font-semibold text-xs sm:text-sm border border-zinc-200 transition-all duration-300 group"
+              >
+                <Play className="w-3.5 h-3.5 text-zinc-500 fill-zinc-500 group-hover:text-brick-orange group-hover:fill-brick-orange transition-colors" />
+                <span>Watch Live</span>
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Miniature Township visualization */}
+          <div className="lg:col-span-5 w-full flex justify-center mt-6 lg:mt-0">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="w-full flex justify-center"
+            >
+              <MiniTownship />
+            </motion.div>
+          </div>
+        </div>
 
         {/* Comparison Showcase Container - Taller and Wider */}
         <motion.div

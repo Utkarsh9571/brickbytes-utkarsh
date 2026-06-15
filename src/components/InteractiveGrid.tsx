@@ -17,6 +17,7 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
     strength: { current: 0, target: 0 },
     pulse: { x: 0, y: 0, radius: 0, strength: 0, active: false },
     dimensions: { width: 0, height: 0 },
+    scrollOffset: { currentY: 0, targetY: 0 },
     animationFrameId: 0,
     isLoopRunning: false,
     isVisible: false,
@@ -149,6 +150,12 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
         }
       }
 
+      // 3. Scroll Warp Wave bending in the middle
+      if (Math.abs(stateRef.current.scrollOffset.currentY) > 0.01) {
+        const wave = stateRef.current.dimensions.width > 0 ? Math.sin((x / stateRef.current.dimensions.width) * Math.PI) : 0;
+        pt.y += stateRef.current.scrollOffset.currentY * wave;
+      }
+
       return pt;
     }
 
@@ -206,7 +213,10 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       context.lineWidth = 0.5;
       context.strokeStyle = strokeStyle;
 
-      const isDistorted = strength > 0.001 || (pulse.active && pulse.strength > 0.001);
+      const isDistorted = 
+        strength > 0.001 || 
+        (pulse.active && pulse.strength > 0.001) ||
+        Math.abs(s.scrollOffset.currentY) > 0.01;
 
       // Vertical lines
       for (let x = 0; x <= width; x += gridSpacing) {
@@ -279,6 +289,10 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       state.mouse.y += (state.mouse.targetY - state.mouse.y) * 0.09;
       state.strength.current += (state.strength.target - state.strength.current) * 0.07;
 
+      // Scroll reactive lerp and decay
+      state.scrollOffset.currentY += (state.scrollOffset.targetY - state.scrollOffset.currentY) * 0.1;
+      state.scrollOffset.targetY += (0 - state.scrollOffset.targetY) * 0.15;
+
       // Update pulse parameters
       if (state.pulse.active) {
         state.pulse.radius += 6.5; // expand speed
@@ -295,9 +309,11 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       // Check if we need to continue the loop
       const isMouseAnimating = state.strength.target > 0 || state.strength.current > 0.001;
       const isPulseAnimating = state.pulse.active;
+      const isScrollAnimating = Math.abs(state.scrollOffset.currentY) > 0.05 || Math.abs(state.scrollOffset.targetY) > 0.05;
 
-      if (!isMouseAnimating && !isPulseAnimating) {
+      if (!isMouseAnimating && !isPulseAnimating && !isScrollAnimating) {
         state.strength.current = 0;
+        state.scrollOffset.currentY = 0;
         drawGrid(ctx, state); // Draw once static
         stopLoop();
         return;
@@ -397,6 +413,20 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       state.mouse.active = false;
     };
 
+    let lastScrollY = typeof window !== "undefined" ? window.scrollY : 0;
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - lastScrollY;
+      lastScrollY = currentScrollY;
+
+      // Limit displacement target delta
+      state.scrollOffset.targetY = Math.max(-35, Math.min(35, delta * 0.35));
+
+      if (state.isVisible) {
+        startLoop();
+      }
+    };
+
     // Attach listeners to parent element to trace interaction fields across the entire section
     const targetElement = container.parentElement || container;
 
@@ -407,6 +437,7 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
     targetElement.addEventListener("touchstart", onTouchStart, { passive: true });
     targetElement.addEventListener("touchmove", onTouchMove, { passive: true });
     targetElement.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
       resizeObserver.disconnect();
@@ -419,6 +450,7 @@ export default function InteractiveGrid({ opacity = 0.5 }: InteractiveGridProps)
       targetElement.removeEventListener("touchstart", onTouchStart);
       targetElement.removeEventListener("touchmove", onTouchMove);
       targetElement.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("scroll", onScroll);
     };
   }, [isLowEndDevice]);
 
