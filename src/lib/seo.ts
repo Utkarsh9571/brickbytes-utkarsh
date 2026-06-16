@@ -21,7 +21,12 @@ export function constructMetadata({
     title,
     description,
     alternates: {
-      canonical: path === "/" ? "/" : fullUrl,
+      canonical: fullUrl,
+    },
+    manifest: "/manifest.json",
+    icons: {
+      icon: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
     },
     openGraph: {
       title,

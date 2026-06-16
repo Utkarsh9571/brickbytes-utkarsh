@@ -428,7 +428,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#faf9f5] border border-zinc-200/50 text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-500 mb-2 sm:mb-6 shadow-sm"
+              className="inline-flex items-center gap-2.5 px-4 py-2 mt-4 rounded-full bg-[#faf9f5] border border-zinc-200/50 text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-500 mb-2 sm:mb-6 shadow-sm"
             >
               <Compass className="w-3.5 h-3.5 text-brick-orange animate-spin-slow" />
               <span>Interactive Estate Visualization</span>
@@ -558,7 +558,14 @@ export default function Hero() {
 
 
               {/* SVG Plots Map - Interactive Landscape */}
-              <svg className="w-full h-full px-6 py-10" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+              <svg 
+                className="w-full h-full px-6 py-10" 
+                viewBox="0 0 1000 600" 
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                aria-label="Interactive subdivision layout plan explorer for BrickBytes"
+              >
+                <title>Interactive subdivision layout plan explorer for BrickBytes</title>
                 
                 {/* Embedded luxury CSS animations */}
                 <style>{`

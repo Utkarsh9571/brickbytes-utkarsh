@@ -1,0 +1,21 @@
+{
+  "name": "BrickBytes",
+  "short_name": "BrickBytes",
+  "description": "Luxury interactive subdivision and plot visualization for real-estate developers and builders.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1c1a17",
+  "theme_color": "#ff5e13",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

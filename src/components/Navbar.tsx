@@ -58,7 +58,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav Items */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item, idx) => {
               const isActive = pathname === item.href;
               return (
@@ -91,7 +91,7 @@ export default function Navbar() {
           </div>
 
           {/* Actions / CTA */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/contact"
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brick-orange hover:bg-brick-orange/95 text-sm font-medium text-white transition-all duration-300 shadow-sm shadow-brick-orange/10 hover:shadow-brick-orange/25 group"
@@ -103,7 +103,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="flex items-center justify-center p-2 rounded-xl text-zinc-600 hover:text-[#1c1a17] hover:bg-black/5 transition-colors border border-transparent"
@@ -122,7 +122,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden border-b border-black/5 bg-[#fbfbfa]/95 backdrop-blur-xl absolute top-full left-0 right-0 w-full overflow-hidden shadow-xl"
+            className="lg:hidden border-b border-black/5 bg-[#fbfbfa]/95 backdrop-blur-xl absolute top-full left-0 right-0 w-full overflow-hidden shadow-xl"
           >
             <div className="px-6 py-8 flex flex-col gap-6">
               <div className="flex flex-col gap-4">

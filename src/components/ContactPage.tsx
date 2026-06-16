@@ -177,7 +177,7 @@ export default function ContactPage() {
               href="https://wa.me/919507321260"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative bg-white border border-zinc-200/60 rounded-3xl p-8 sm:p-10 transition-all duration-300 shadow-sm hover:border-emerald-400/50 hover:shadow-luxury-deep card-hover-accent accent-radius-3xl text-left"
+              className="group relative bg-white border border-zinc-200/60 rounded-3xl p-6 sm:p-10 transition-all duration-300 shadow-sm hover:border-emerald-400/50 hover:shadow-luxury-deep card-hover-accent accent-radius-3xl text-left"
               style={{ "--accent-hover-color": "#22c55e" } as React.CSSProperties}
             >
               <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100/50 mb-6">
@@ -199,7 +199,7 @@ export default function ContactPage() {
             <motion.a
               variants={slideInRight}
               href="mailto:business@brickbytes.in"
-              className="group relative bg-white border border-zinc-200/60 rounded-3xl p-8 sm:p-10 transition-all duration-300 shadow-sm hover:border-brick-orange/40 hover:shadow-luxury-deep card-hover-accent accent-radius-3xl text-left"
+              className="group relative bg-white border border-zinc-200/60 rounded-3xl p-6 sm:p-10 transition-all duration-300 shadow-sm hover:border-brick-orange/40 hover:shadow-luxury-deep card-hover-accent accent-radius-3xl text-left"
             >
               <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-orange-50 border border-orange-100/50 mb-6">
                 <Mail className="w-6 h-6 text-brick-orange" />
@@ -262,7 +262,7 @@ export default function ContactPage() {
               <motion.form
                 variants={springUp}
                 onSubmit={handleSubmit}
-                className="bg-white border border-zinc-200/60 rounded-3xl p-8 sm:p-10 shadow-sm"
+                className="bg-white border border-zinc-200/60 rounded-3xl p-5 sm:p-10 shadow-sm"
               >
                 {error && (
                   <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 text-xs sm:text-sm text-red-600 text-left">
