@@ -7,6 +7,7 @@ import ProductShowcase from "@/components/ProductShowcase";
 import HowItWorks from "@/components/HowItWorks";
 import UseCases from "@/components/UseCases";
 import WhyBrickBytes from "@/components/WhyBrickBytes";
+import Trust from "@/components/Trust";
 import About from "@/components/About";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
@@ -24,6 +25,7 @@ export default function Home() {
         <HowItWorks />
         <UseCases />
         <WhyBrickBytes />
+        <Trust />
         <About />
         <FAQ />
         <FinalCTA />

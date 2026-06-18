@@ -43,7 +43,7 @@ export default function Footer() {
               {[
                 { name: "Technology", href: "/technology" },
                 { name: "How It Works", href: "/how-it-works" },
-                { name: "Pricing", href: "/pricing" },
+                { name: "Solutions", href: "/#use-cases" },
               ].map((link, idx) => (
                 <li key={idx}>
                   <Link
@@ -166,7 +166,7 @@ export default function Footer() {
         {/* Bottom Banner */}
         <div className="border-t border-zinc-200/80 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-zinc-400 font-sans font-light">
-            &copy; 2026 BrickBytes Inc. All rights reserved.
+            &copy; 2026 BrickBytes. A Venture by BrickNova Technologies. All rights reserved.
           </p>
           
           <button

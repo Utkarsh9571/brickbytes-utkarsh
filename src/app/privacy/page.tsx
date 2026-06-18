@@ -75,7 +75,7 @@ export default function PrivacyPage() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>Processing and arranging personalized interactive demo walkthroughs.</li>
                 <li>Sending transactional updates, service alerts, and responder confirmations via email or WhatsApp.</li>
-                <li>Optimizing user engagement metrics across our digital maps and bento dashboards.</li>
+                <li>Optimizing user engagement metrics across our digital maps and bento interfaces.</li>
                 <li>Complying with statutory regulatory obligations and company transparency values.</li>
               </ul>
             </div>

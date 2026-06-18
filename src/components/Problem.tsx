@@ -34,15 +34,15 @@ const problems = [
     svg: (
       <svg className="w-full h-32" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="15" y="10" width="100" height="20" rx="6" fill="#f4f4f5" stroke="#e4e4e7" strokeWidth="0.8" />
-        <text x="24" y="22" fontSize="7" fontFamily="sans-serif" fill="#71717a">&ldquo;Is Lot 14 available?&rdquo;</text>
+        <text x="24" y="22" fontSize="7" fontFamily="sans-serif" fill="#71717a">&ldquo;Is Plot 14 available?&rdquo;</text>
         <path d="M 120 20 Q 150 35 120 50" fill="none" stroke="#ff5e13" strokeWidth="0.8" strokeDasharray="2 2" />
         <polygon points="118,50 123,47 123,53" fill="#ff5e13" />
         <rect x="15" y="40" width="100" height="20" rx="6" fill="#f4f4f5" stroke="#e4e4e7" strokeWidth="0.8" />
-        <text x="24" y="52" fontSize="7" fontFamily="sans-serif" fill="#71717a">&ldquo;Is Lot 14 available?&rdquo;</text>
+        <text x="24" y="52" fontSize="7" fontFamily="sans-serif" fill="#71717a">&ldquo;Is Plot 14 available?&rdquo;</text>
         <path d="M 120 50 Q 150 65 120 80" fill="none" stroke="#ff5e13" strokeWidth="0.8" strokeDasharray="2 2" />
         <polygon points="118,80 123,77 123,83" fill="#ff5e13" />
         <rect x="15" y="70" width="100" height="20" rx="6" fill="#f4f4f5" stroke="#e4e4e7" strokeWidth="0.8" />
-        <text x="24" y="82" fontSize="7" fontFamily="sans-serif" fill="#71717a">&ldquo;Is Lot 14 available?&rdquo;</text>
+        <text x="24" y="82" fontSize="7" fontFamily="sans-serif" fill="#71717a">&ldquo;Is Plot 14 available?&rdquo;</text>
         <path d="M 160 42 C 150 42, 142 50, 150 58 C 158 66, 172 34, 180 42 C 188 50, 180 58, 170 58 C 160 58, 152 42, 160 42 Z" fill="none" stroke="#e4e4e7" strokeWidth="1.2" opacity="0.4" />
       </svg>
     )

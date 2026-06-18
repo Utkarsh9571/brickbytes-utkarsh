@@ -7,7 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "", changeFrequency: "weekly" as const, priority: 1.0 },
     { path: "/technology", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/how-it-works", changeFrequency: "weekly" as const, priority: 0.8 },
-    { path: "/pricing", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/about", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/contact", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/privacy", changeFrequency: "monthly" as const, priority: 0.5 },

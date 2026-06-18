@@ -27,13 +27,13 @@ const platformCards = [
         <rect x="15" y="15" width="210" height="130" rx="10" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
         <rect x="25" y="25" width="190" height="28" rx="6" fill="#faf9f5" stroke="#ff5e13" strokeWidth="0.8" />
         
-        <text x="35" y="42" fontSize="9" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Lot 14</text>
+        <text x="35" y="42" fontSize="9" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Plot 14</text>
         <rect x="150" y="31" width="55" height="15" rx="4" fill="#ff5e13" />
         <text x="177.5" y="41" fontSize="7" fontWeight="bold" fill="#ffffff" fontFamily="sans-serif" textAnchor="middle">AVAILABLE</text>
         
         {/* Plot Data Sheet */}
         <text x="25" y="72" fontSize="7" fill="#71717a" fontFamily="sans-serif">Area:</text>
-        <text x="90" y="72" fontSize="7" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">6,000 sq ft</text>
+        <text x="90" y="72" fontSize="7" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">660 Sq. Yds.</text>
         <line x1="25" y1="78" x2="215" y2="78" stroke="#f4f4f5" strokeWidth="0.5" />
         
         <text x="25" y="92" fontSize="7" fill="#71717a" fontFamily="sans-serif">Facing:</text>
@@ -56,9 +56,9 @@ const platformCards = [
     badge: "Leads & Scheduling",
     icon: <Calendar className="w-5 h-5 text-brick-orange" />,
     features: [
-      "Lead tracking dashboard",
+      "Broker Lead Tracking",
       "Visit management",
-      "Booking workflow",
+      "Booking Coordination",
       "Performance visibility"
     ],
     svg: (
@@ -71,31 +71,31 @@ const platformCards = [
         
         {/* Row 1 */}
         <rect x="25" y="25" width="190" height="30" rx="6" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
-        <text x="35" y="43" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Utkarsh S.</text>
+        <text x="35" y="43" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Rajesh M.</text>
         <text x="95" y="42" fontSize="7" fill="#71717a" fontFamily="sans-serif">Visit Scheduled</text>
         <rect x="160" y="32" width="45" height="14" rx="4" fill="#fff3eb" stroke="#ffebdd" strokeWidth="0.5" />
-        <text x="182.5" y="41" fontSize="6" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif" textAnchor="middle">LOT 14</text>
+        <text x="182.5" y="41" fontSize="6" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif" textAnchor="middle">PLOT 14</text>
 
         {/* Row 2 */}
         <rect x="25" y="62" width="190" height="30" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.5" />
         <text x="35" y="80" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Priyal M.</text>
         <text x="95" y="79" fontSize="7" fill="#71717a" fontFamily="sans-serif">Offer Negotiation</text>
         <rect x="160" y="69" width="45" height="14" rx="4" fill="#f4f4f5" stroke="#e4e4e7" strokeWidth="0.5" />
-        <text x="182.5" y="78" fontSize="6" fontWeight="bold" fill="#71717a" fontFamily="sans-serif" textAnchor="middle">LOT 05</text>
+        <text x="182.5" y="78" fontSize="6" fontWeight="bold" fill="#71717a" fontFamily="sans-serif" textAnchor="middle">PLOT 05</text>
 
         {/* Row 3 */}
         <rect x="25" y="99" width="190" height="30" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.5" />
-        <text x="35" y="117" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Aarav K.</text>
+        <text x="35" y="117" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Amit S.</text>
         <text x="95" y="116" fontSize="7" fill="#10b981" fontFamily="sans-serif">Booking Confirmed</text>
         <rect x="160" y="106" width="45" height="14" rx="4" fill="#ecfdf5" stroke="#d1fae5" strokeWidth="0.5" />
-        <text x="182.5" y="115" fontSize="6" fontWeight="bold" fill="#10b981" fontFamily="sans-serif" textAnchor="middle">LOT 09</text>
+        <text x="182.5" y="115" fontSize="6" fontWeight="bold" fill="#10b981" fontFamily="sans-serif" textAnchor="middle">PLOT 09</text>
       </svg>
     )
   },
   {
     tag: "03 / ADMIN ENGINE",
     title: "Developer Control Center",
-    desc: "Manage master plan layouts, allocate plots, coordinate broker networks, and review executive sales metrics on a unified dashboard.",
+    desc: "Manage master plan layouts, allocate plots, coordinate broker networks, and review executive sales metrics in a unified Developer Control Center.",
     badge: "Inventory & Analytics",
     icon: <ShieldCheck className="w-5 h-5 text-brick-orange" />,
     features: [
@@ -109,13 +109,13 @@ const platformCards = [
         {/* Background Grid */}
         <path d="M 0 30 L 240 30 M 0 60 L 240 60 M 0 90 L 240 90 M 0 120 L 240 120 M 40 0 L 40 160 M 80 0 L 80 160 M 120 0 L 120 160 M 160 0 L 160 160 M 200 0 L 200 160" stroke="#f4f4f5" strokeWidth="0.5" />
         
-        {/* Dashboard Box */}
+        {/* Console Box */}
         <rect x="15" y="15" width="210" height="130" rx="10" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
         
         {/* Metric widgets */}
         <rect x="25" y="25" width="55" height="35" rx="6" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
         <text x="32" y="37" fontSize="6" fill="#71717a" fontFamily="sans-serif">Total Value</text>
-        <text x="32" y="52" fontSize="10" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif">$12.4M</text>
+        <text x="32" y="52" fontSize="10" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif">₹95 Cr</text>
 
         <rect x="92" y="25" width="55" height="35" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.5" />
         <text x="99" y="37" fontSize="6" fill="#71717a" fontFamily="sans-serif">Plots Sold</text>

@@ -17,12 +17,12 @@ interface MiniPlot {
 }
 
 const miniPlots: MiniPlot[] = [
-  { id: "Plot 101", area: "2,400 sq.ft", facing: "North", status: "available", points: "150,50 210,80 150,110 90,80", cx: 150, cy: 80, price: "₹72 L", type: "Premium Vista" },
-  { id: "Plot 102", area: "1,800 sq.ft", facing: "East", status: "sold", points: "220,85 280,115 220,145 160,115", cx: 220, cy: 115, price: "₹54 L", type: "Standard Lot" },
-  { id: "Plot 103", area: "3,000 sq.ft", facing: "East", status: "available", points: "290,120 350,150 290,180 230,150", cx: 290, cy: 150, price: "₹95 L", type: "Lakeside Reserve" },
-  { id: "Plot 104", area: "2,400 sq.ft", facing: "North", status: "available", points: "90,105 150,135 90,165 30,135", cx: 90, cy: 135, price: "₹74 L", type: "Premium Vista" },
-  { id: "Plot 105", area: "1,800 sq.ft", facing: "West", status: "reserved", points: "160,140 220,170 160,200 100,170", cx: 160, cy: 170, price: "₹55 L", type: "Standard Lot" },
-  { id: "Plot 106", area: "3,200 sq.ft", facing: "North", status: "available", points: "230,175 290,205 230,235 170,205", cx: 230, cy: 205, price: "₹1.1 Cr", type: "Lakeside Reserve" }
+  { id: "Plot 101", area: "265 Sq. Yds.", facing: "North", status: "available", points: "150,50 210,80 150,110 90,80", cx: 150, cy: 80, price: "₹72 L", type: "Premium Vista" },
+  { id: "Plot 102", area: "200 Sq. Yds.", facing: "East", status: "sold", points: "220,85 280,115 220,145 160,115", cx: 220, cy: 115, price: "₹54 L", type: "Standard Plot" },
+  { id: "Plot 103", area: "333 Sq. Yds.", facing: "East", status: "available", points: "290,120 350,150 290,180 230,150", cx: 290, cy: 150, price: "₹95 L", type: "Lakeside Reserve" },
+  { id: "Plot 104", area: "265 Sq. Yds.", facing: "North", status: "available", points: "90,105 150,135 90,165 30,135", cx: 90, cy: 135, price: "₹74 L", type: "Premium Vista" },
+  { id: "Plot 105", area: "200 Sq. Yds.", facing: "West", status: "reserved", points: "160,140 220,170 160,200 100,170", cx: 160, cy: 170, price: "₹55 L", type: "Standard Plot" },
+  { id: "Plot 106", area: "355 Sq. Yds.", facing: "North", status: "available", points: "230,175 290,205 230,235 170,205", cx: 230, cy: 205, price: "₹1.1 Cr", type: "Lakeside Reserve" }
 ];
 
 export default function MiniTownship() {
@@ -207,8 +207,9 @@ export default function MiniTownship() {
               transition={{ duration: 0.15 }}
               className="absolute pointer-events-none bg-zinc-950 text-white rounded-lg p-2.5 shadow-xl border border-zinc-800 flex flex-col gap-0.5 text-left z-20"
               style={{
-                top: hoveredPlot.cy + 10,
-                left: hoveredPlot.cx - 20,
+                top: `${(hoveredPlot.cy / 270) * 100}%`,
+                left: `${(hoveredPlot.cx / 380) * 100}%`,
+                transform: "translate(-50%, 8px)",
               }}
             >
               <div className="flex items-center gap-1.5 justify-between">

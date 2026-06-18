@@ -310,7 +310,7 @@ function DeveloperControlSVG() {
         >
           <rect x="45" y="40" width="70" height="40" rx="6" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
           <text x="52" y="55" fontSize="7" fill="#71717a" fontFamily="sans-serif">Total Value</text>
-          <text x="52" y="72" fontSize="12" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif">₹12.4Cr</text>
+          <text x="52" y="72" fontSize="12" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif">₹95 Cr</text>
         </motion.g>
 
         {/* Metric 2 */}
@@ -403,13 +403,13 @@ const capabilitySections = [
   },
   {
     tag: "03 / AI ASSISTANT",
-    title: "AI-Powered Buyer Engagement",
-    desc: "An intelligent context-aware chat assistant answering buyer questions about pricing, dimensions, local regulations, and plot parameters — reducing manual follow-ups.",
+    title: "AI-Assisted Buyer Engagement",
+    desc: "An intelligent context-aware spatial AI assistant answering buyer queries about plot dimensions, local regulations, and project parameters in real time.",
     features: [
-      "Instant answers to buyer questions",
-      "Context-aware project knowledge",
-      "Lead engagement and qualification",
-      "Reduced manual sales follow-ups",
+      "AI-powered project exploration and Q&A",
+      "AI-driven project visualization details",
+      "AI-enhanced inventory status updates",
+      "Secure AI infrastructure for developer data",
     ],
     icon: <Sparkles className="w-6 h-6 text-brick-orange" />,
     svg: <AiAssistantSVG />,
@@ -417,7 +417,7 @@ const capabilitySections = [
   {
     tag: "04 / DEVELOPER CONTROL",
     title: "Developer Control Center",
-    desc: "Manage master plan layouts, allocate plots, coordinate broker networks, and review executive sales metrics on a unified dashboard.",
+    desc: "Manage master plan layouts, allocate plots, coordinate broker networks, and review executive sales metrics on a unified console.",
     features: [
       "Inventory management tools",
       "Team and broker oversight",

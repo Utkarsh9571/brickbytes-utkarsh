@@ -46,7 +46,7 @@ const expandedSteps = [
     number: "01",
     tag: "STEP ONE",
     title: "Share Project Information",
-    desc: "Upload layout plans, CAD drawings, parcel boundary dimensions, price lists, and developer rules to our secure onboarding dashboard.",
+    desc: "Upload layout plans, CAD drawings, parcel boundary dimensions, price lists, and developer rules to our secure onboarding panel.",
     longDesc: "You provide the raw materials — we handle everything else. Our team works with whatever formats you have, from professional CAD exports to hand-drawn sketches and PDF brochures.",
     icon: <FileUp className="w-6 h-6 text-brick-orange" />,
     items: [
@@ -77,7 +77,7 @@ const expandedSteps = [
     tag: "STEP THREE",
     title: "Launch & Start Engaging Buyers",
     desc: "Embed the live interactive showcase onto your website, invite broker partners, and secure buyer reservations with instant updates.",
-    longDesc: "Your digital project experience goes live. Buyers explore layouts, brokers track leads, and your team manages everything from a centralized dashboard.",
+    longDesc: "Your digital project experience goes live. Buyers explore layouts, brokers track leads, and your team manages everything from a centralized console.",
     icon: <Globe className="w-6 h-6 text-brick-orange" />,
     items: [
       { label: "Website embedding", detail: "One-line integration", icon: <Code className="w-4 h-4" /> },

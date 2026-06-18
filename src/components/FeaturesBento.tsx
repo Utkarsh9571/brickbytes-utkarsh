@@ -11,7 +11,7 @@ const bentoItems = [
     tag: "Interactive Exploration",
     title: "Interactive Plot Maps",
     subtitle: "Live Subdivision Plans",
-    desc: "Buyers can explore master plans dynamically. Filter lots by availability, inspect facing directions, road dimensions, and check real-time availability status.",
+    desc: "Buyers can explore master plans dynamically. Filter plots by availability, inspect facing directions, road dimensions, and check real-time availability status.",
     span: "md:col-span-2 md:row-span-2",
     icon: <Map className="w-5 h-5 text-brick-orange" />,
     svg: (
@@ -107,7 +107,7 @@ const bentoItems = [
         <rect x="20" y="20" width="120" height="56" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
         <circle cx="38" cy="48" r="10" fill="#fff3eb" stroke="#ff5e13" strokeWidth="0.8" />
         <path d="M38,44 A2.5,2.5 0 1,0 38,49 A2.5,2.5 0 1,0 38,44 Z M33,54 A5,5 0 0,1 43,54" stroke="#ff5e13" strokeWidth="0.8" fill="none" />
-        <text x="54" y="44" fontSize="7" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Utkarsh Sharma</text>
+        <text x="54" y="44" fontSize="7" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Amit Sharma</text>
         <text x="54" y="55" fontSize="5.5" fill="#71717a" fontFamily="sans-serif">Today, 2:30 PM</text>
         <rect x="98" y="60" width="30" height="10" rx="3" fill="#10b981" />
         <text x="113" y="67" fontSize="5" fontWeight="bold" fill="#ffffff" fontFamily="sans-serif" textAnchor="middle">VISIT</text>
@@ -115,11 +115,11 @@ const bentoItems = [
     )
   },
   {
-    id: "admin-dashboard",
+    id: "admin-console",
     tag: "Developer Controls",
-    title: "Admin Dashboard",
+    title: "Admin Console",
     subtitle: "Live Management Platform",
-    desc: "Control development properties, upload revised layout vector maps, approve broker commissions, track inventory details, and override availability manually from a single administrative console.",
+    desc: "Control development properties, upload revised layout vector maps, approve broker commissions, track inventory details, and override availability manually from a single administrative control center.",
     span: "md:col-span-2 md:row-span-1",
     icon: <Monitor className="w-5 h-5 text-brick-orange" />,
     svg: (
@@ -143,14 +143,14 @@ const bentoItems = [
     tag: "Instant Allocations",
     title: "Inventory Management",
     subtitle: "Real-time Sales Controls",
-    desc: "Sync plot statuses across the platform. Instantly lock lots, override facing parameters, release holds, and generate reservation documents.",
+    desc: "Sync plot statuses across the platform. Instantly lock plots, override facing parameters, release holds, and generate reservation documents.",
     span: "md:col-span-1 md:row-span-1",
     icon: <ShieldAlert className="w-5 h-5 text-brick-orange" />,
     svg: (
       <svg className="w-full h-24" viewBox="0 0 160 96" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M 0 16 L 160 16 M 0 48 L 160 48 M 0 80 L 160 80 M 32 0 L 32 96 M 96 0 L 96 96" stroke="#f4f4f5" strokeWidth="0.5" />
         <rect x="20" y="25" width="120" height="46" rx="6" fill="#ffffff" stroke="#e4e4e7" strokeWidth="0.8" />
-        <text x="30" y="51" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Status Lock: Lot 12</text>
+        <text x="30" y="51" fontSize="8" fontWeight="bold" fill="#1c1a17" fontFamily="sans-serif">Status Lock: Plot 12</text>
         <rect x="100" y="41" width="30" height="14" rx="7" fill="#ff5e13" />
         <circle cx="121" cy="48" r="5" fill="#ffffff" />
       </svg>
@@ -158,17 +158,17 @@ const bentoItems = [
   },
   {
     id: "ai-assistant",
-    tag: "Intelligent Agent",
-    title: "AI Assistant",
-    subtitle: "Conversational Context",
-    desc: "An intelligent context-aware chat assistant answering buyer questions about pricing, dimensions, local regulations, and plot parameters.",
+    tag: "AI-Assisted Engagement",
+    title: "AI-Assisted Buyer Engagement",
+    subtitle: "AI-Powered Exploration",
+    desc: "An intelligent, context-aware spatial AI assistant answering buyer queries about plot sizes, dimensions, local regulations, and project parameters in real time.",
     span: "md:col-span-1 md:row-span-1",
     icon: <Sparkles className="w-5 h-5 text-brick-orange" />,
     svg: (
       <svg className="w-full h-24" viewBox="0 0 160 96" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M 0 16 L 160 16 M 0 48 L 160 48 M 0 80 L 160 80 M 32 0 L 32 96 M 96 0 L 96 96" stroke="#f4f4f5" strokeWidth="0.5" />
         <rect x="15" y="18" width="95" height="20" rx="6" fill="#faf9f5" stroke="#e4e4e7" strokeWidth="0.5" />
-        <text x="22" y="30" fontSize="6" fill="#71717a" fontFamily="sans-serif">Show Lot 14 facing details.</text>
+        <text x="22" y="30" fontSize="6" fill="#71717a" fontFamily="sans-serif">Show Plot 14 facing details.</text>
         
         <rect x="45" y="46" width="100" height="30" rx="6" fill="#fff3eb" stroke="#ffebdd" strokeWidth="0.5" />
         <text x="52" y="58" fontSize="6.5" fontWeight="bold" fill="#ff5e13" fontFamily="sans-serif">East facing</text>
@@ -178,7 +178,7 @@ const bentoItems = [
   },
   {
     id: "analytics",
-    tag: "Sales Dashboards",
+    tag: "Sales Panels",
     title: "Project Analytics",
     subtitle: "Business Velocity Insights",
     desc: "Monitor sales speeds, visual demand map metrics, broker performance volumes, and executive cash flows in one unified panel.",

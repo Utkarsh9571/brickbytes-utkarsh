@@ -9,28 +9,28 @@ import MiniTownship from "./MiniTownship";
 // Plotted Land Gated Community Model
 const plots = [
   // Block A - Lakeside Ridge (North-West)
-  { id: "Lot 01", area: "6,800 sq ft", status: "available", facing: "Lakefront View", roadWidth: "40 ft", dimensions: "60 x 113 ft", path: "M 330,60 L 470,60 L 470,160 L 330,160 Z", cx: 400, cy: 110, block: "Lakeside Ridge", isPremium: true },
-  { id: "Lot 02", area: "6,800 sq ft", status: "sold", facing: "Lakefront View", roadWidth: "40 ft", dimensions: "60 x 113 ft", path: "M 330,170 L 470,170 L 470,270 L 330,270 Z", cx: 400, cy: 220, block: "Lakeside Ridge", isPremium: false },
-  { id: "Lot 03", area: "5,400 sq ft", status: "available", facing: "North facing", roadWidth: "30 ft", dimensions: "50 x 108 ft", path: "M 200,200 L 310,200 L 310,270 L 200,270 Z", cx: 255, cy: 235, block: "Lakeside Ridge", isPremium: false },
-  { id: "Lot 04", area: "5,400 sq ft", status: "reserved", facing: "North facing", roadWidth: "30 ft", dimensions: "50 x 108 ft", path: "M 80,200 L 180,200 L 180,270 L 80,270 Z", cx: 130, cy: 235, block: "Lakeside Ridge", isPremium: false },
+  { id: "Plot 01", area: "750 Sq. Yds.", status: "available", facing: "Lakefront View", roadWidth: "40 ft", dimensions: "60 x 113 ft", path: "M 330,60 L 470,60 L 470,160 L 330,160 Z", cx: 400, cy: 110, block: "Lakeside Ridge", isPremium: true },
+  { id: "Plot 02", area: "750 Sq. Yds.", status: "sold", facing: "Lakefront View", roadWidth: "40 ft", dimensions: "60 x 113 ft", path: "M 330,170 L 470,170 L 470,270 L 330,270 Z", cx: 400, cy: 220, block: "Lakeside Ridge", isPremium: false },
+  { id: "Plot 03", area: "600 Sq. Yds.", status: "available", facing: "North facing", roadWidth: "30 ft", dimensions: "50 x 108 ft", path: "M 200,200 L 310,200 L 310,270 L 200,270 Z", cx: 255, cy: 235, block: "Lakeside Ridge", isPremium: false },
+  { id: "Plot 04", area: "600 Sq. Yds.", status: "reserved", facing: "North facing", roadWidth: "30 ft", dimensions: "50 x 108 ft", path: "M 80,200 L 180,200 L 180,270 L 80,270 Z", cx: 130, cy: 235, block: "Lakeside Ridge", isPremium: false },
 
   // Block B - Premium Boulevard (North-East)
-  { id: "Lot 05", area: "7,200 sq ft", status: "available", facing: "Boulevard Promenade", roadWidth: "60 ft", dimensions: "60 x 120 ft", path: "M 530,160 L 620,160 L 620,270 L 530,270 Z", cx: 575, cy: 215, block: "Premium Boulevard", isPremium: true },
-  { id: "Lot 06", area: "7,200 sq ft", status: "sold", facing: "Boulevard Promenade", roadWidth: "60 ft", dimensions: "60 x 120 ft", path: "M 630,160 L 720,160 L 720,270 L 630,270 Z", cx: 675, cy: 215, block: "Premium Boulevard", isPremium: false },
-  { id: "Lot 07", area: "7,500 sq ft", status: "available", facing: "East facing", roadWidth: "40 ft", dimensions: "60 x 125 ft", path: "M 730,160 L 820,160 L 820,270 L 730,270 Z", cx: 775, cy: 215, block: "Premium Boulevard", isPremium: true },
-  { id: "Lot 08", area: "8,800 sq ft", status: "reserved", facing: "Corner Estate", roadWidth: "40 ft", dimensions: "70 x 125 ft", path: "M 830,160 L 940,160 L 940,270 L 830,270 Z", cx: 885, cy: 215, block: "Premium Boulevard", isPremium: true },
+  { id: "Plot 05", area: "800 Sq. Yds.", status: "available", facing: "Boulevard Promenade", roadWidth: "60 ft", dimensions: "60 x 120 ft", path: "M 530,160 L 620,160 L 620,270 L 530,270 Z", cx: 575, cy: 215, block: "Premium Boulevard", isPremium: true },
+  { id: "Plot 06", area: "800 Sq. Yds.", status: "sold", facing: "Boulevard Promenade", roadWidth: "60 ft", dimensions: "60 x 120 ft", path: "M 630,160 L 720,160 L 720,270 L 630,270 Z", cx: 675, cy: 215, block: "Premium Boulevard", isPremium: false },
+  { id: "Plot 07", area: "830 Sq. Yds.", status: "available", facing: "East facing", roadWidth: "40 ft", dimensions: "60 x 125 ft", path: "M 730,160 L 820,160 L 820,270 L 730,270 Z", cx: 775, cy: 215, block: "Premium Boulevard", isPremium: true },
+  { id: "Plot 08", area: "970 Sq. Yds.", status: "reserved", facing: "Corner Estate", roadWidth: "40 ft", dimensions: "70 x 125 ft", path: "M 830,160 L 940,160 L 940,270 L 830,270 Z", cx: 885, cy: 215, block: "Premium Boulevard", isPremium: true },
 
   // Block C - Boulevard Villas (South-West)
-  { id: "Lot 09", area: "5,000 sq ft", status: "available", facing: "South facing", roadWidth: "35 ft", dimensions: "50 x 100 ft", path: "M 260,330 L 360,330 L 360,430 L 260,430 Z", cx: 310, cy: 380, block: "Boulevard Villas", isPremium: false },
-  { id: "Lot 10", area: "5,000 sq ft", status: "sold", facing: "South facing", roadWidth: "35 ft", dimensions: "50 x 100 ft", path: "M 370,330 L 470,330 L 470,430 L 370,430 Z", cx: 420, cy: 380, block: "Boulevard Villas", isPremium: false },
-  { id: "Lot 11", area: "5,000 sq ft", status: "available", facing: "West facing", roadWidth: "30 ft", dimensions: "50 x 100 ft", path: "M 370,440 L 470,440 L 470,540 L 370,540 Z", cx: 420, cy: 490, block: "Boulevard Villas", isPremium: false },
-  { id: "Lot 12", area: "5,000 sq ft", status: "available", facing: "West facing", roadWidth: "30 ft", dimensions: "50 x 100 ft", path: "M 260,440 L 360,440 L 360,540 L 260,540 Z", cx: 310, cy: 490, block: "Boulevard Villas", isPremium: false },
+  { id: "Plot 09", area: "550 Sq. Yds.", status: "available", facing: "South facing", roadWidth: "35 ft", dimensions: "50 x 100 ft", path: "M 260,330 L 360,330 L 360,430 L 260,430 Z", cx: 310, cy: 380, block: "Boulevard Villas", isPremium: false },
+  { id: "Plot 10", area: "550 Sq. Yds.", status: "sold", facing: "South facing", roadWidth: "35 ft", dimensions: "50 x 100 ft", path: "M 370,330 L 470,330 L 470,430 L 370,430 Z", cx: 420, cy: 380, block: "Boulevard Villas", isPremium: false },
+  { id: "Plot 11", area: "550 Sq. Yds.", status: "available", facing: "West facing", roadWidth: "30 ft", dimensions: "50 x 100 ft", path: "M 370,440 L 470,440 L 470,540 L 370,540 Z", cx: 420, cy: 490, block: "Boulevard Villas", isPremium: false },
+  { id: "Plot 12", area: "550 Sq. Yds.", status: "available", facing: "West facing", roadWidth: "30 ft", dimensions: "50 x 100 ft", path: "M 260,440 L 360,440 L 360,540 L 260,540 Z", cx: 310, cy: 490, block: "Boulevard Villas", isPremium: false },
 
   // Block D - Parkview Meadows (South-East)
-  { id: "Lot 13", area: "6,000 sq ft", status: "available", facing: "Parkview Front", roadWidth: "40 ft", dimensions: "50 x 120 ft", path: "M 530,330 L 610,330 L 610,430 L 530,430 Z", cx: 570, cy: 380, block: "Parkview Meadows", isPremium: false },
-  { id: "Lot 14", area: "6,000 sq ft", status: "sold", facing: "Parkview Front", roadWidth: "40 ft", dimensions: "50 x 120 ft", path: "M 620,330 L 690,330 L 690,430 L 620,430 Z", cx: 655, cy: 380, block: "Parkview Meadows", isPremium: false },
-  { id: "Lot 15", area: "6,000 sq ft", status: "reserved", facing: "Parkview Front", roadWidth: "40 ft", dimensions: "50 x 120 ft", path: "M 530,440 L 610,440 L 610,540 L 530,540 Z", cx: 570, cy: 490, block: "Parkview Meadows", isPremium: false },
-  { id: "Lot 16", area: "6,400 sq ft", status: "available", facing: "Park & Corner", roadWidth: "40 ft", dimensions: "53 x 120 ft", path: "M 620,440 L 690,440 L 690,540 L 620,540 Z", cx: 655, cy: 490, block: "Parkview Meadows", isPremium: true }
+  { id: "Plot 13", area: "660 Sq. Yds.", status: "available", facing: "Parkview Front", roadWidth: "40 ft", dimensions: "50 x 120 ft", path: "M 530,330 L 610,330 L 610,430 L 530,430 Z", cx: 570, cy: 380, block: "Parkview Meadows", isPremium: false },
+  { id: "Plot 14", area: "660 Sq. Yds.", status: "sold", facing: "Parkview Front", roadWidth: "40 ft", dimensions: "50 x 120 ft", path: "M 620,330 L 690,330 L 690,430 L 620,430 Z", cx: 655, cy: 380, block: "Parkview Meadows", isPremium: false },
+  { id: "Plot 15", area: "660 Sq. Yds.", status: "reserved", facing: "Parkview Front", roadWidth: "40 ft", dimensions: "50 x 120 ft", path: "M 530,440 L 610,440 L 610,540 L 530,540 Z", cx: 570, cy: 490, block: "Parkview Meadows", isPremium: false },
+  { id: "Plot 16", area: "710 Sq. Yds.", status: "available", facing: "Park & Corner", roadWidth: "40 ft", dimensions: "53 x 120 ft", path: "M 620,440 L 690,440 L 690,540 L 620,540 Z", cx: 655, cy: 490, block: "Parkview Meadows", isPremium: true }
 ];
 
 export default function Hero() {
@@ -350,7 +350,7 @@ export default function Hero() {
                   : "fill-zinc-500"
               } ${viewMode === "drone" && !isSelected ? "opacity-30" : "opacity-100"}`}
             >
-              {plot.id.replace("Lot ", "")}
+              {plot.id.replace("Plot ", "")}
             </text>
 
             <circle
@@ -454,7 +454,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-xs sm:text-sm md:text-base text-zinc-500 max-w-xl mt-4 mb-6 leading-relaxed font-sans font-light"
             >
-              Replace static blueprint PDFs with immersive interactive maps. Empower buyers to explore available lots, view luxury clubhouse amenities, and experience drone views. Crafted exclusively for elite real estate developments.
+              Deploy AI-powered project exploration to replace static blueprints. Empower buyers to explore available plots, view luxury township amenities, and experience virtual drone tours. Crafted for premium real estate developers.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -1195,7 +1195,7 @@ export default function Hero() {
                       <span className="font-semibold text-zinc-800">{currentPlot.roadWidth}</span>
                     </div>
 
-                    {/* Actions Workflow: Drone View toggle & Add to Compare */}
+                    {/* Actions Process: Drone View toggle & Add to Compare */}
                     <div className="grid grid-cols-2 gap-2 mt-4 pt-2 border-t border-zinc-200/40">
                       <button
                         onClick={() => setToastMessage(`Drone view for ${currentPlot.id} is coming soon.`)}
@@ -1449,7 +1449,7 @@ export default function Hero() {
                         fill="#b5b3ad"
                         className="text-[6.5px] font-mono font-light"
                       >
-                        {plot.area.replace(" sq ft", " SF")}
+                        {plot.area.replace(" Sq. Yds.", " SY")}
                       </text>
                       
                       {/* Architectural dimension labels on selected edges */}

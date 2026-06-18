@@ -9,7 +9,7 @@ const steps = [
   {
     number: "01",
     title: "Share Project Information",
-    desc: "Upload layout plans, CAD drawings, parcel boundary dimensions, price lists, and developer rules to our secure onboarding dashboard.",
+    desc: "Upload layout plans, CAD drawings, parcel boundary dimensions, price lists, and developer rules to our secure onboarding panel.",
     icon: <FileUp className="w-4 h-4 text-brick-orange" />,
     svg: (
       <svg className="w-full h-24" viewBox="0 0 160 96" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -202,7 +202,7 @@ export default function HowItWorks() {
               return (
                 <div key={idx} className="relative pl-16 sm:pl-24">
                   {/* Circle Node */}
-                  <div className="absolute left-0 top-0 flex items-center justify-center">
+                  <div className="absolute left-0 top-0 h-16 w-16 sm:w-24 flex items-center justify-center">
                     <motion.div
                       initial="hidden"
                       whileInView="show"

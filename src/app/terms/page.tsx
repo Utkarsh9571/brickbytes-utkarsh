@@ -65,7 +65,7 @@ export default function TermsPage() {
                 3. User Account and Data Accuracy
               </h2>
               <p>
-                To utilize certain dashboard administration tools, you may be required to register credentials. You are responsible for maintaining the confidentiality of your account details. Any master plans, vector layout specifications, pricing details, or availability parameters you submit to our mapping database must be accurate and up-to-date.
+                To utilize certain developer management tools, you may be required to register credentials. You are responsible for maintaining the confidentiality of your account details. Any master plans, vector layout specifications, pricing parameters, or availability parameters you submit to our mapping database must be accurate and up-to-date.
               </p>
             </div>
 

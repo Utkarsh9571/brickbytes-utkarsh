@@ -69,7 +69,7 @@ export default function About() {
                 transition={{ duration: 0.6 }}
                 className="text-[10px] uppercase tracking-[0.25em] font-mono font-bold text-brick-orange mb-3"
               >
-                About
+                About | A Venture by BrickNova Technologies
               </motion.div>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}

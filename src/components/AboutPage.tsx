@@ -115,12 +115,12 @@ const builders = [
   {
     name: "Utkarsh Sharma",
     role: "Founder",
-    desc: "Technology-focused entrepreneur with expertise in web development, AI, and product systems. Transforms complex ideas into scalable, high-performance solutions with deep market insight in real estate.",
+    desc: "Driven by growth and strong relationships, Utkarsh focuses on fostering strategic collaborations and creating opportunities through technology-driven innovation. He believes in building trust, understanding people, and turning connections into meaningful outcomes that drive long-term success.",
   },
   {
     name: "Rashika Verma",
     role: "Founder",
-    desc: "Design-first leader focused on user experience and branding. Translates concepts into intuitive, refined digital interfaces that are both aesthetically strong and functionally aligned with vision.",
+    desc: "Passionate about innovation and strategic thinking, Rashika focuses on transforming ideas into impactful, technology-driven solutions. She believes in building meaningful relationships, driving long-term vision, and creating sustainable success through creativity, leadership, and thoughtful execution.",
   },
 ];
 
@@ -133,7 +133,7 @@ export default function AboutPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 z-10 w-full">
           <motion.div initial="hidden" animate="show" variants={stagger} className="max-w-3xl text-left">
             <motion.div variants={fadeUp} className="text-[10px] uppercase tracking-[0.25em] font-mono font-bold text-brick-orange mb-3">
-              About
+              About | A Venture by BrickNova Technologies
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-3xl sm:text-5xl md:text-6xl font-serif font-light tracking-tight leading-[1.15] text-zinc-950 mb-6">
               Building the bridge between{" "}
@@ -264,7 +264,7 @@ export default function AboutPage() {
               whileInView="show"
               viewport={{ once: true, margin: "-80px" }}
               variants={stagger} 
-              className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-2xl"
             >
               {builders.map((builder, idx) => {
                 const cardVariant = idx === 0 ? slideInLeft : slideInRight;

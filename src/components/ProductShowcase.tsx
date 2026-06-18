@@ -21,12 +21,12 @@ interface Plot {
 }
 
 const initialPlots: Plot[] = [
-  { id: "PLOT 01", type: "Corner Estate", facing: "North", size: "2,400 sq.ft", road: "40 ft. Road", price: "₹72.0 L", status: "Available", category: "corner", x: 25, y: 25, w: 90, h: 70 },
-  { id: "PLOT 02", type: "Standard Lot", facing: "East", size: "1,200 sq.ft", road: "30 ft. Road", price: "₹36.0 L", status: "Sold", category: "east", x: 125, y: 25, w: 90, h: 70 },
-  { id: "PLOT 03", type: "Lakeside Villa", facing: "East", size: "3,000 sq.ft", road: "60 ft. Avenue", price: "₹1.2 Cr", status: "Hold", category: "lakeside", x: 225, y: 25, w: 100, h: 70 },
-  { id: "PLOT 04", type: "Corner Estate", facing: "East", size: "2,400 sq.ft", road: "40 ft. Road", price: "₹76.0 L", status: "Available", category: "corner", x: 25, y: 115, w: 90, h: 80 },
-  { id: "PLOT 05", type: "Standard Lot", facing: "North", size: "1,500 sq.ft", road: "35 ft. Road", price: "₹45.0 L", status: "Available", category: "north", x: 125, y: 115, w: 90, h: 80 },
-  { id: "PLOT 06", type: "Lakeside Villa", facing: "North", size: "3,200 sq.ft", road: "60 ft. Avenue", price: "₹1.3 Cr", status: "Available", category: "lakeside", x: 225, y: 115, w: 100, h: 80 },
+  { id: "PLOT 01", type: "Corner Estate", facing: "North", size: "265 Sq. Yds.", road: "40 ft. Road", price: "₹72.0 L", status: "Available", category: "corner", x: 25, y: 25, w: 90, h: 70 },
+  { id: "PLOT 02", type: "Standard Plot", facing: "East", size: "133 Sq. Yds.", road: "30 ft. Road", price: "₹36.0 L", status: "Sold", category: "east", x: 125, y: 25, w: 90, h: 70 },
+  { id: "PLOT 03", type: "Lakeside Villa", facing: "East", size: "333 Sq. Yds.", road: "60 ft. Avenue", price: "₹1.2 Cr", status: "Hold", category: "lakeside", x: 225, y: 25, w: 100, h: 70 },
+  { id: "PLOT 04", type: "Corner Estate", facing: "East", size: "265 Sq. Yds.", road: "40 ft. Road", price: "₹76.0 L", status: "Available", category: "corner", x: 25, y: 115, w: 90, h: 80 },
+  { id: "PLOT 05", type: "Standard Plot", facing: "North", size: "165 Sq. Yds.", road: "35 ft. Road", price: "₹45.0 L", status: "Available", category: "north", x: 125, y: 115, w: 90, h: 80 },
+  { id: "PLOT 06", type: "Lakeside Villa", facing: "North", size: "355 Sq. Yds.", road: "60 ft. Avenue", price: "₹1.3 Cr", status: "Available", category: "lakeside", x: 225, y: 115, w: 100, h: 80 },
 ];
 
 const filters = [
@@ -45,7 +45,7 @@ export default function ProductShowcase() {
 
   const selectedPlot = plots.find((p) => p.id === selectedId) || null;
 
-  // Derived state for inventory dashboard counts
+  // Derived state for inventory management counts
   const totalCount = plots.length;
   const availableCount = plots.filter((p) => p.status === "Available").length;
   const holdCount = plots.filter((p) => p.status === "Hold").length;
@@ -412,13 +412,20 @@ export default function ProductShowcase() {
                         </div>
 
                         {/* Dynamic Badge */}
-                        <span className={`px-3 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider ${
+                        <span className={`px-2.5 py-0.5 rounded-md text-[9px] font-mono font-medium tracking-wide border flex items-center gap-1.5 select-none ${
                           selectedPlot.status === "Available"
-                            ? "bg-emerald-50 border border-emerald-100 text-emerald-600"
+                            ? "bg-emerald-50/50 border-emerald-100/60 text-emerald-600"
                             : selectedPlot.status === "Hold"
-                            ? "bg-amber-50 border border-amber-100 text-amber-600"
-                            : "bg-zinc-50 border border-zinc-200/60 text-zinc-500"
+                            ? "bg-amber-50/50 border-amber-100/60 text-amber-600"
+                            : "bg-zinc-50 border-zinc-200/60 text-zinc-500"
                         }`}>
+                          <span className={`w-1 h-1 rounded-full ${
+                            selectedPlot.status === "Available"
+                              ? "bg-emerald-500"
+                              : selectedPlot.status === "Hold"
+                              ? "bg-amber-500"
+                              : "bg-zinc-400"
+                          }`} />
                           {selectedPlot.status}
                         </span>
                       </div>
@@ -452,27 +459,27 @@ export default function ProductShowcase() {
                       </div>
 
                       {/* Control Buttons */}
-                      <div className="flex flex-col gap-2">
+                      <div className="grid grid-cols-3 gap-2">
                         <button
                           onClick={() => handleUpdateStatus(selectedPlot.id, "Available")}
                           disabled={selectedPlot.status === "Available"}
-                          className="w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-700 hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-zinc-700 disabled:hover:border-zinc-200"
+                          className="py-2.5 px-3 rounded-lg border border-zinc-200 hover:border-emerald-200 hover:bg-emerald-50/30 hover:text-emerald-600 text-[10px] font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                         >
-                          Set Status: Available
+                          Available
                         </button>
                         <button
                           onClick={() => handleUpdateStatus(selectedPlot.id, "Hold")}
                           disabled={selectedPlot.status === "Hold"}
-                          className="w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-700 hover:bg-amber-50 hover:text-amber-600 hover:border-amber-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-zinc-700 disabled:hover:border-zinc-200"
+                          className="py-2.5 px-3 rounded-lg border border-zinc-200 hover:border-amber-200 hover:bg-amber-50/30 hover:text-amber-600 text-[10px] font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                         >
-                          Set Status: Hold
+                          Hold
                         </button>
                         <button
                           onClick={() => handleUpdateStatus(selectedPlot.id, "Sold")}
                           disabled={selectedPlot.status === "Sold"}
-                          className="w-full py-3 rounded-xl border border-zinc-200 bg-white text-zinc-700 hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-xs font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-zinc-700 disabled:hover:border-zinc-200"
+                          className="py-2.5 px-3 rounded-lg border border-zinc-200 hover:border-red-200 hover:bg-red-50/30 hover:text-red-600 text-[10px] font-mono font-bold uppercase tracking-wider transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                         >
-                          Set Status: Sold
+                          Sold
                         </button>
                       </div>
                     </motion.div>
@@ -489,7 +496,7 @@ export default function ProductShowcase() {
               {/* Panel Footer */}
               <div className="border-t border-zinc-100 pt-5 mt-6 text-left">
                 <p className="text-[10px] text-zinc-400 leading-relaxed font-sans font-light">
-                  *This interactive console demonstrates plot availability synchronization across active sales dashboards and broker maps.
+                  *This interactive console demonstrates plot availability synchronization across active developer consoles and broker maps.
                 </p>
               </div>
             </div>
