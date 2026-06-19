@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Transformation from "@/components/Transformation";
+import SalesComparison from "@/components/SalesComparison";
 import ProductEcosystem from "@/components/ProductEcosystem";
 import FeaturesBento from "@/components/FeaturesBento";
 import ProductShowcase from "@/components/ProductShowcase";
@@ -19,6 +20,7 @@ export default function Home() {
         <Hero />
         <Problem />
         <Transformation />
+        <SalesComparison />
         <ProductEcosystem />
         <FeaturesBento />
         <ProductShowcase />
