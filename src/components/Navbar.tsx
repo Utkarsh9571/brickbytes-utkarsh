@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight, Home, PhoneCall } from "lucide-react";
+import { Menu, X, ArrowRight, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const navItems = [
   { name: "Our Technology", href: "/technology" },
@@ -48,13 +49,15 @@ export default function Navbar() {
           }`}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group cursor-pointer">
-            <div className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-brick-orange text-white shadow-md shadow-brick-orange/20 transition-all duration-300 group-hover:scale-105">
-              <Home className="w-5 h-5" />
-            </div>
-            <span className="text-xl font-bold tracking-tight text-[#1c1a17]">
-              Brick<span className="text-brick-orange">Bytes</span>
-            </span>
+          <Link href="/" className="flex items-center group cursor-pointer">
+            <Image
+              src="/logo.png"
+              alt="BrickBytes Logo"
+              width={111}
+              height={32}
+              className="h-8 w-auto object-contain transition-all duration-300 group-hover:scale-105"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav Items */}

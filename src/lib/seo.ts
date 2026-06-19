@@ -25,7 +25,7 @@ export function constructMetadata({
     },
     manifest: "/manifest.json",
     icons: {
-      icon: "/favicon.ico",
+      icon: "/favicon.png",
       apple: "/apple-touch-icon.png",
     },
     openGraph: {

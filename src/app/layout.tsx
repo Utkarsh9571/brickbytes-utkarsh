@@ -42,7 +42,7 @@ export default function RootLayout({
     "@type": "Organization",
     "name": "BrickBytes",
     "url": "https://brickbytes.in",
-    "logo": "https://brickbytes.in/favicon.ico",
+    "logo": "https://brickbytes.in/favicon.png",
     "description": "Luxury interactive subdivision and plot visualization for real-estate developers and builders.",
     "sameAs": [
       "https://x.com/brickbytes",

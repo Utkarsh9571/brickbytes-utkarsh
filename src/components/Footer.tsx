@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { ArrowUp, Mail, MapPin, Home, MessageCircle, Calendar } from "lucide-react";
+import { ArrowUp, Mail, MapPin, MessageCircle, Calendar } from "lucide-react";
 import Link from "next/link";
 import InteractiveGrid from "./InteractiveGrid";
+import Image from "next/image";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -20,13 +21,14 @@ export default function Footer() {
           
           {/* Column 1: Brand Info */}
           <div className="col-span-2 flex flex-col gap-6 text-left">
-            <Link href="/" className="flex items-center gap-2.5 group cursor-pointer">
-              <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-brick-orange text-white shadow-md shadow-brick-orange/20 transition-all duration-300">
-                <Home className="w-4.5 h-4.5" />
-              </div>
-              <span className="text-lg font-bold tracking-tight text-[#1c1a17]">
-                Brick<span className="text-brick-orange">Bytes</span>
-              </span>
+            <Link href="/" className="flex items-center group cursor-pointer">
+              <Image
+                src="/logo.png"
+                alt="BrickBytes Logo"
+                width={98}
+                height={28}
+                className="h-7 w-auto object-contain transition-all duration-300 group-hover:scale-105"
+              />
             </Link>
             
             <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-sans font-light">

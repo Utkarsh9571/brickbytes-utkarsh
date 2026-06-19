@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, Variants, useScroll, useSpring } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, Variants, useScroll, useSpring, useMotionValueEvent } from "framer-motion";
 import { ArrowRight, FileUp, Cpu, Globe } from "lucide-react";
 import InteractiveGrid from "./InteractiveGrid";
 
@@ -145,6 +145,7 @@ const springUp: Variants = {
 
 export default function HowItWorks() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activeStep, setActiveStep] = useState(0);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -155,6 +156,16 @@ export default function HowItWorks() {
     stiffness: 90,
     damping: 25,
     restDelta: 0.001
+  });
+
+  useMotionValueEvent(scaleY, "change", (latest) => {
+    if (latest >= 0.85) {
+      setActiveStep(2);
+    } else if (latest >= 0.4) {
+      setActiveStep(1);
+    } else {
+      setActiveStep(0);
+    }
   });
 
   return (
@@ -185,7 +196,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Vertical Timeline container */}
-        <div ref={containerRef} className="relative max-w-4xl mx-auto pl-4 pr-4 sm:pl-8 sm:pr-8 py-4">
+        <div ref={containerRef} className="relative max-w-4xl mx-auto pl-0 pr-4 sm:pl-0 sm:pr-8 py-4">
           
           {/* Vertical Track Line */}
           <div className="absolute left-8 sm:left-12 top-4 bottom-4 w-0.5 bg-zinc-200/80 rounded-full">
@@ -205,8 +216,7 @@ export default function HowItWorks() {
                   <div className="absolute left-0 top-0 h-16 w-16 sm:w-24 flex items-center justify-center">
                     <motion.div
                       initial="hidden"
-                      whileInView="show"
-                      viewport={{ once: false, margin: "-12% 0px -15% 0px" }}
+                      animate={activeStep >= idx ? "show" : "hidden"}
                       variants={{
                         hidden: { scale: 0.8, borderColor: "#e4e4e7", color: "#a1a1aa", boxShadow: "none" },
                         show: {
@@ -226,8 +236,7 @@ export default function HowItWorks() {
                   {/* Content Card */}
                   <motion.div
                     initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: false, margin: "-12% 0px -15% 0px" }}
+                    animate={activeStep >= idx ? "show" : "hidden"}
                     variants={cardVariant}
                     className="group bg-white border rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-center shadow-sm transition-all duration-500"
                   >
